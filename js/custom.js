@@ -1,51 +1,87 @@
 (function () {
     'use strict';
 
-    // URL de nuestro Google Apps Script
-    const API_URL = 'https://script.google.com/macros/s/AKfycbz5zrEtFPTINYTnNYnidS0WJ-4Ep-DbMjdlRF-b2tlhqRyQqBT8mQnWuw1C7CbwAs8fGw/exec';
+    // URL de Google Apps Script
+    const API_URL =
+        'https://script.google.com/macros/s/AKfycbz5zrEtFPTINYTnNYnidS0WJ-4Ep-DbMjdlRF-b2tlhqRyQqBT8mQnWuw1C7CbwAs8fGw/exec';
 
-    // Lee el ID de la URL:
-    // https://sofiita18-ops.github.io/invitaciones-boda/?id=F001
+    // Leer el ID de la URL
     const params = new URLSearchParams(window.location.search);
     const invitacionId = params.get('id');
 
-    // Si no hay ID, no hacemos nada todavía.
     if (!invitacionId) {
         console.log('No se ha proporcionado ningún ID de invitación.');
         return;
     }
 
     /**
-     * Consulta Google Apps Script
+     * Cargar los invitados mediante JSONP.
      */
-    async function cargarInvitados() {
-        try {
-            const url = `${API_URL}?id=${encodeURIComponent(invitacionId)}`;
+    function cargarInvitados() {
 
-            const response = await fetch(url);
+        const callbackName =
+            'respuestaInvitacion_' + Date.now();
 
-            if (!response.ok) {
-                throw new Error('Error HTTP ' + response.status);
+        window[callbackName] = function (data) {
+
+            try {
+
+                if (!data.ok) {
+                    throw new Error(
+                        data.error || 'No se encontraron invitados'
+                    );
+                }
+
+                console.log('✅ Invitación encontrada:', data);
+
+                mostrarInvitados(data.invitados);
+
+            } catch (error) {
+
+                console.error(
+                    '❌ Error procesando la invitación:',
+                    error
+                );
+
+            } finally {
+
+                // Limpiar callback
+                delete window[callbackName];
+
+                // Eliminar script temporal
+                const script =
+                    document.getElementById(callbackName);
+
+                if (script) {
+                    script.remove();
+                }
             }
+        };
 
-            const data = await response.json();
+        const script = document.createElement('script');
 
-            if (!data.ok) {
-                throw new Error(data.error || 'No se encontraron invitados');
-            }
+        script.id = callbackName;
 
-            console.log('✅ Invitación encontrada:', data);
+        script.src =
+            `${API_URL}?id=${encodeURIComponent(invitacionId)}&callback=${callbackName}`;
 
-            mostrarInvitados(data.invitados);
+        script.onerror = function () {
 
-        } catch (error) {
-            console.error('❌ Error cargando la invitación:', error);
-        }
+            console.error(
+                '❌ No se pudo conectar con Google Apps Script.'
+            );
+
+            delete window[callbackName];
+            script.remove();
+        };
+
+        document.body.appendChild(script);
     }
 
+
     /**
-     * De momento solo mostramos los nombres en la consola.
-     * Más adelante los colocaremos en el sobre.
+     * Mostrar los nombres encontrados.
+     * De momento solo es una prueba.
      */
     function mostrarInvitados(invitados) {
 
@@ -55,12 +91,15 @@
 
         console.log('👥 Invitados:', nombres);
 
-        // PRUEBA TEMPORAL:
-        // Cambiamos el título de la página para comprobar que funciona.
         if (nombres.length > 0) {
-            document.title = nombres.join(' & ') + ' · Nuestra boda';
+
+            document.title =
+                nombres.join(' & ') +
+                ' · Nuestra boda';
+
         }
     }
+
 
     cargarInvitados();
 
