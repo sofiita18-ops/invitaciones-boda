@@ -141,15 +141,17 @@
              * Esperamos a que la animación del sobre termine
              * antes de quitar la pantalla.
              */
-            setTimeout(() => {
+           setTimeout(() => {
 
-                overlay.classList.add('is-open');
+    overlay.classList.add('is-open');
 
-                document.body.classList.remove(
-                    'invitation-locked'
-                );
+    document.body.classList.remove(
+        'invitation-locked'
+    );
 
-            }, 950);
+    crearWebInvitacion();
+
+}, 950);
         }
 
 
@@ -318,5 +320,477 @@
      * Iniciar.
      */
     cargarInvitados();
+/* ==========================================================
+   WEB DE LA BODA
+   ========================================================== */
 
+function crearWebInvitacion() {
+
+    // Evitar crearla dos veces
+    if (document.getElementById('custom-wedding-site')) {
+        return;
+    }
+
+    /*
+     * Ocultar la web original de RamPatra.
+     * La mantenemos en el proyecto por ahora, pero no se verá.
+     */
+    document.body.classList.add('our-site-mode');
+
+
+    /*
+     * Datos de los invitados
+     */
+    const invitados =
+        window.invitacionBoda?.invitados || [];
+
+    const nombres =
+        invitados
+            .map(invitado => invitado.Nombre)
+            .filter(Boolean);
+
+    const nombresTexto =
+        nombres.join(' & ');
+
+
+    /*
+     * Crear nuestra página
+     */
+    const web =
+        document.createElement('main');
+
+    web.id =
+        'custom-wedding-site';
+
+
+    web.innerHTML = `
+
+        <!-- =============================================
+             PORTADA
+             ============================================= -->
+
+        <section class="wedding-section wedding-cover">
+
+            <div class="wedding-cover-overlay"></div>
+
+            <div class="wedding-cover-content">
+
+                <p class="wedding-small-title">
+                    Nos casamos
+                </p>
+
+                <h1>
+                    Sofía <span>&</span> X
+                </h1>
+
+                <p class="wedding-date">
+                    FECHA DE LA BODA
+                </p>
+
+                <div
+                    id="wedding-countdown"
+                    class="wedding-countdown"
+                >
+                    <div>
+                        <strong>--</strong>
+                        <span>días</span>
+                    </div>
+
+                    <div>
+                        <strong>--</strong>
+                        <span>horas</span>
+                    </div>
+
+                    <div>
+                        <strong>--</strong>
+                        <span>min</span>
+                    </div>
+
+                    <div>
+                        <strong>--</strong>
+                        <span>seg</span>
+                    </div>
+                </div>
+
+                <p class="wedding-scroll-hint">
+                    ↓
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =============================================
+             EVENTO
+             ============================================= -->
+
+        <section
+            id="evento"
+            class="wedding-section wedding-event"
+        >
+
+            <div class="wedding-content">
+
+                <p class="wedding-kicker">
+                    El gran día
+                </p>
+
+                <h2>
+                    La boda
+                </h2>
+
+                <div class="event-details">
+
+                    <div class="event-detail">
+
+                        <div class="event-icon">
+                            ♡
+                        </div>
+
+                        <h3>
+                            FECHA
+                        </h3>
+
+                        <p>
+                            FECHA DE LA BODA
+                        </p>
+
+                    </div>
+
+
+                    <div class="event-detail">
+
+                        <div class="event-icon">
+                            ○
+                        </div>
+
+                        <h3>
+                            LUGAR
+                        </h3>
+
+                        <p>
+                            NOMBRE DEL LUGAR
+                        </p>
+
+                        <p class="event-address">
+                            Dirección del lugar
+                        </p>
+
+                    </div>
+
+
+                    <div class="event-detail">
+
+                        <div class="event-icon">
+                            ◷
+                        </div>
+
+                        <h3>
+                            HORA
+                        </h3>
+
+                        <p>
+                            00:00 h
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <a
+                    class="wedding-button"
+                    href="#"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    Cómo llegar
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =============================================
+             CONFIRMACIÓN
+             ============================================= -->
+
+        <section
+            id="confirmacion"
+            class="wedding-section wedding-rsvp"
+        >
+
+            <div class="wedding-content">
+
+                <p class="wedding-kicker">
+                    ¿Nos acompañas?
+                </p>
+
+                <h2>
+                    Confirma tu asistencia
+                </h2>
+
+                <p class="wedding-text">
+                    Nos hace mucha ilusión compartir este
+                    día contigo.
+                </p>
+
+                <button
+                    type="button"
+                    id="open-rsvp"
+                    class="wedding-button wedding-button-main"
+                >
+                    Confirmar asistencia
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =============================================
+             INFORMACIÓN
+             ============================================= -->
+
+        <section
+            id="informacion"
+            class="wedding-section wedding-info"
+        >
+
+            <div class="wedding-content">
+
+                <p class="wedding-kicker">
+                    Para que todo sea más fácil
+                </p>
+
+                <h2>
+                    Información
+                </h2>
+
+
+                <div class="info-card">
+
+                    <h3>
+                        Alojamiento
+                    </h3>
+
+                    <p>
+                        Aquí añadiremos los hoteles,
+                        apartamentos y opciones de
+                        alojamiento recomendadas.
+                    </p>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <h3>
+                        Cómo llegar
+                    </h3>
+
+                    <p>
+                        Aquí añadiremos información
+                        sobre coche, autobús, taxi,
+                        parking, etc.
+                    </p>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <h3>
+                        Horarios
+                    </h3>
+
+                    <p>
+                        Aquí pondremos los horarios
+                        específicos de la boda,
+                        autobuses, recepción, etc.
+                    </p>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <h3>
+                        Otros detalles
+                    </h3>
+
+                    <p>
+                        Todo aquello que necesitéis
+                        saber antes de venir.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =============================================
+             PIE
+             ============================================= -->
+
+        <footer class="wedding-footer">
+
+            <p>
+                Sofía & X
+            </p>
+
+            <span>
+                Con mucho cariño
+            </span>
+
+        </footer>
+
+    `;
+
+
+    document.body.appendChild(web);
+
+
+    /*
+     * Inicializar cuenta atrás
+     */
+    iniciarCuentaAtras();
+
+
+    /*
+     * Botón de RSVP
+     */
+    const botonRsvp =
+        document.getElementById('open-rsvp');
+
+    if (botonRsvp) {
+
+        botonRsvp.addEventListener(
+            'click',
+            () => {
+
+                /*
+                 * De momento solo desplazamos
+                 * hacia la futura zona del formulario.
+                 */
+                document
+                    .getElementById('confirmacion')
+                    .scrollIntoView({
+                        behavior: 'smooth'
+                    });
+
+            }
+        );
+    }
+
+}
+
+
+/* ==========================================================
+   CUENTA ATRÁS
+   ========================================================== */
+
+function iniciarCuentaAtras() {
+
+    /*
+     * CAMBIAREMOS ESTA FECHA CUANDO ME DES
+     * LA FECHA DEFINITIVA DE LA BODA.
+     */
+    const fechaBoda =
+        new Date('2030-01-01T18:00:00');
+
+    const elemento =
+        document.getElementById(
+            'wedding-countdown'
+        );
+
+    if (!elemento) {
+        return;
+    }
+
+
+    function actualizar() {
+
+        const ahora =
+            new Date();
+
+        const diferencia =
+            fechaBoda - ahora;
+
+
+        if (diferencia <= 0) {
+
+            elemento.innerHTML = `
+                <p>
+                    ¡Ha llegado el gran día!
+                </p>
+            `;
+
+            return;
+        }
+
+
+        const dias =
+            Math.floor(
+                diferencia /
+                (1000 * 60 * 60 * 24)
+            );
+
+        const horas =
+            Math.floor(
+                (diferencia /
+                (1000 * 60 * 60)) % 24
+            );
+
+        const minutos =
+            Math.floor(
+                (diferencia /
+                (1000 * 60)) % 60
+            );
+
+        const segundos =
+            Math.floor(
+                (diferencia /
+                1000) % 60
+            );
+
+
+        elemento.innerHTML = `
+
+            <div>
+                <strong>${dias}</strong>
+                <span>días</span>
+            </div>
+
+            <div>
+                <strong>${horas}</strong>
+                <span>horas</span>
+            </div>
+
+            <div>
+                <strong>${minutos}</strong>
+                <span>min</span>
+            </div>
+
+            <div>
+                <strong>${segundos}</strong>
+                <span>seg</span>
+            </div>
+
+        `;
+    }
+
+
+    actualizar();
+
+    setInterval(
+        actualizar,
+        1000
+    );
+}
+    
 })();
