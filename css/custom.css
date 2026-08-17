@@ -675,3 +675,311 @@ body.our-site-mode {
     }
 
 }
+
+/* =========================================================
+   FORMULARIO RSVP
+   ========================================================= */
+
+body.rsvp-open {
+    overflow: hidden;
+}
+
+#rsvp-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+
+    visibility: hidden;
+    opacity: 0;
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+}
+
+#rsvp-modal.is-visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+.rsvp-backdrop {
+    position: absolute;
+    inset: 0;
+
+    background:
+        rgba(45, 39, 33, 0.55);
+}
+
+.rsvp-panel {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -47%);
+
+    width: min(
+        calc(100% - 30px),
+        760px
+    );
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: #f8f4ec;
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,0.22);
+
+    border-radius: 3px;
+
+    transition:
+        transform 0.35s ease;
+}
+
+#rsvp-modal.is-visible .rsvp-panel {
+    transform:
+        translate(-50%, -50%);
+}
+
+.rsvp-inner {
+    padding:
+        55px 45px 50px;
+}
+
+.rsvp-close {
+    position: absolute;
+
+    top: 18px;
+    right: 20px;
+
+    width: 38px;
+    height: 38px;
+
+    border: none;
+    background: transparent;
+
+    font-size: 32px;
+    line-height: 1;
+
+    color: #4d463f;
+
+    cursor: pointer;
+}
+
+.rsvp-intro {
+    max-width: 550px;
+
+    margin:
+        -20px auto 40px;
+
+    line-height: 1.7;
+
+    opacity: 0.75;
+}
+
+.rsvp-person {
+    padding:
+        28px 0 32px;
+
+    border-top:
+        1px solid rgba(63,58,52,0.16);
+}
+
+.rsvp-person:first-child {
+    border-top: none;
+}
+
+.rsvp-person-title h3 {
+    margin:
+        0 0 25px;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.rsvp-field {
+    margin-bottom: 25px;
+}
+
+.rsvp-field > label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-size: 12px;
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+}
+
+.rsvp-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.rsvp-option {
+    position: relative;
+}
+
+.rsvp-option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.rsvp-option span {
+    display: inline-block;
+
+    padding:
+        11px 16px;
+
+    border:
+        1px solid rgba(63,58,52,0.22);
+
+    background: transparent;
+
+    cursor: pointer;
+
+    transition:
+        all 0.2s ease;
+}
+
+.rsvp-option input:checked + span {
+    background: #65594d;
+    color: #fff;
+    border-color: #65594d;
+}
+
+.rsvp-field select,
+.rsvp-field input[type="text"],
+.rsvp-field textarea,
+.rsvp-general textarea {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding:
+        13px 14px;
+
+    border:
+        1px solid rgba(63,58,52,0.20);
+
+    border-radius: 0;
+
+    background: #fffdf9;
+
+    color: #3f3a34;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+.rsvp-field textarea,
+.rsvp-general textarea {
+    resize: vertical;
+}
+
+.rsvp-field select:focus,
+.rsvp-field input[type="text"]:focus,
+.rsvp-field textarea:focus,
+.rsvp-general textarea:focus {
+    border-color: #65594d;
+}
+
+.rsvp-extra-fields.is-disabled {
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+.rsvp-general {
+    margin:
+        15px 0 30px;
+}
+
+.rsvp-general > label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-size: 12px;
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+}
+
+.rsvp-save {
+    margin-top: 15px;
+}
+
+.rsvp-message {
+    margin-top: 20px;
+
+    padding:
+        12px 15px;
+
+    line-height: 1.5;
+
+    font-size: 14px;
+}
+
+.rsvp-message.success {
+    background: #e8eee4;
+}
+
+.rsvp-message.error {
+    background: #f3e1df;
+}
+
+.rsvp-loading {
+    padding:
+        30px 0;
+
+    text-align: center;
+
+    opacity: 0.6;
+}
+
+.rsvp-error {
+    padding: 15px;
+
+    background: #f3e1df;
+}
+
+@media (max-width: 600px) {
+
+    .rsvp-panel {
+        width: calc(100% - 16px);
+        max-height: 94vh;
+    }
+
+    .rsvp-inner {
+        padding:
+            45px 24px 35px;
+    }
+
+    .rsvp-person-title h3 {
+        font-size: 25px;
+    }
+
+    .rsvp-options {
+        flex-direction: column;
+    }
+
+    .rsvp-option span {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+    }
+}
