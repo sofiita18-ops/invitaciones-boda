@@ -1,22 +1,19 @@
 (function () {
     'use strict';
 
-    // URL de Google Apps Script
-    const API_URL =
-        'https://script.google.com/macros/s/AKfycbz5zrEtFPTINYTnNYnidS0WJ-4Ep-DbMjdlRF-b2tlhqRyQqBT8mQnWuw1C7CbwAs8fGw/exec';
+    // IMPORTANTE:
+    // Aquí debes pegar EXACTAMENTE la URL de tu
+    // implementación de Apps Script.
+    const API_URL = 'https://script.google.com/macros/s/AKfycbz5zrEtFPTINYTnNYnidS0WJ-4Ep-DbMjdlRF-b2tlhqRyQqBT8mQnWuw1C7CbwAs8fGw/exec';
 
-    // Leer el ID de la URL
     const params = new URLSearchParams(window.location.search);
     const invitacionId = params.get('id');
 
     if (!invitacionId) {
-        console.log('No se ha proporcionado ningún ID de invitación.');
+        console.log('ℹ️ No hay ID de invitación en la URL.');
         return;
     }
 
-    /**
-     * Cargar los invitados mediante JSONP.
-     */
     function cargarInvitados() {
 
         const callbackName =
@@ -24,38 +21,20 @@
 
         window[callbackName] = function (data) {
 
-            try {
+            console.log('✅ Respuesta recibida de Apps Script:', data);
 
-                if (!data.ok) {
-                    throw new Error(
-                        data.error || 'No se encontraron invitados'
-                    );
-                }
-
-                console.log('✅ Invitación encontrada:', data);
-
-                mostrarInvitados(data.invitados);
-
-            } catch (error) {
-
+            if (!data.ok) {
                 console.error(
-                    '❌ Error procesando la invitación:',
-                    error
+                    '❌ Apps Script ha respondido con un error:',
+                    data.error
                 );
 
-            } finally {
-
-                // Limpiar callback
-                delete window[callbackName];
-
-                // Eliminar script temporal
-                const script =
-                    document.getElementById(callbackName);
-
-                if (script) {
-                    script.remove();
-                }
+                limpiar();
+                return;
             }
+
+            mostrarInvitados(data.invitados);
+            limpiar();
         };
 
         const script = document.createElement('script');
@@ -63,33 +42,45 @@
         script.id = callbackName;
 
         script.src =
-            `${API_URL}?id=${encodeURIComponent(invitacionId)}&callback=${callbackName}`;
+            API_URL +
+            '?id=' +
+            encodeURIComponent(invitacionId) +
+            '&prefix=' +
+            encodeURIComponent(callbackName);
 
         script.onerror = function () {
 
             console.error(
-                '❌ No se pudo conectar con Google Apps Script.'
+                '❌ No se pudo cargar la URL de Apps Script:',
+                script.src
             );
 
-            delete window[callbackName];
-            script.remove();
+            limpiar();
         };
 
         document.body.appendChild(script);
+
+
+        function limpiar() {
+            delete window[callbackName];
+
+            const elemento =
+                document.getElementById(callbackName);
+
+            if (elemento) {
+                elemento.remove();
+            }
+        }
     }
 
 
-    /**
-     * Mostrar los nombres encontrados.
-     * De momento solo es una prueba.
-     */
     function mostrarInvitados(invitados) {
 
         const nombres = invitados
             .map(invitado => invitado.Nombre)
             .filter(Boolean);
 
-        console.log('👥 Invitados:', nombres);
+        console.log('👥 Invitados encontrados:', nombres);
 
         if (nombres.length > 0) {
 
