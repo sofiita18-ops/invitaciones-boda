@@ -284,3 +284,394 @@ body.invitation-locked {
         font-size: 16px;
     }
 }
+
+/* =========================================================
+   WEB DE LA BODA
+   ========================================================= */
+
+body.our-site-mode > *:not(#custom-wedding-site):not(#invitation-envelope) {
+    display: none !important;
+}
+
+body.our-site-mode {
+    margin: 0;
+    padding: 0;
+    background: #f4efe6;
+    color: #3f3a34;
+}
+
+
+/* ---------------------------------------------------------
+   ESTRUCTURA
+   --------------------------------------------------------- */
+
+#custom-wedding-site {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.wedding-section {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    padding: 80px 24px;
+    box-sizing: border-box;
+}
+
+
+/* ---------------------------------------------------------
+   PORTADA
+   --------------------------------------------------------- */
+
+.wedding-cover {
+    min-height: 100svh;
+
+    background:
+        linear-gradient(
+            rgba(40,35,30,0.20),
+            rgba(40,35,30,0.20)
+        ),
+        url('../img/hero-min.jpg');
+
+    background-size: cover;
+    background-position: center;
+}
+
+.wedding-cover-content {
+    position: relative;
+
+    z-index: 2;
+
+    text-align: center;
+
+    color: white;
+
+    max-width: 700px;
+}
+
+.wedding-small-title {
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+}
+
+.wedding-cover h1 {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        clamp(48px, 12vw, 92px);
+
+    font-weight: 400;
+
+    margin: 0;
+}
+
+.wedding-cover h1 span {
+    font-style: italic;
+}
+
+.wedding-date {
+    margin-top: 25px;
+
+    font-size: 14px;
+
+    letter-spacing: 0.25em;
+}
+
+
+/* ---------------------------------------------------------
+   CUENTA ATRÁS
+   --------------------------------------------------------- */
+
+.wedding-countdown {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+
+    margin-top: 45px;
+}
+
+.wedding-countdown > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.wedding-countdown strong {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.wedding-countdown span {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    opacity: 0.85;
+}
+
+
+/* ---------------------------------------------------------
+   SCROLL
+   --------------------------------------------------------- */
+
+.wedding-scroll-hint {
+    margin-top: 55px;
+
+    font-size: 26px;
+
+    animation:
+        wedding-scroll 2s ease-in-out infinite;
+}
+
+@keyframes wedding-scroll {
+
+    0%, 100% {
+        transform: translateY(0);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: translateY(10px);
+        opacity: 1;
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   CONTENIDO
+   --------------------------------------------------------- */
+
+.wedding-content {
+    width: min(100%, 900px);
+    text-align: center;
+}
+
+.wedding-kicker {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.65;
+}
+
+.wedding-content h2 {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        clamp(42px, 8vw, 64px);
+
+    font-weight: 400;
+
+    margin:
+        15px 0 50px;
+}
+
+.wedding-text {
+    max-width: 550px;
+    margin: 0 auto 35px;
+    line-height: 1.8;
+}
+
+
+/* ---------------------------------------------------------
+   EVENTO
+   --------------------------------------------------------- */
+
+.wedding-event {
+    background: #f8f4ec;
+}
+
+.event-details {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 45px;
+
+    max-width: 800px;
+
+    margin:
+        0 auto 50px;
+}
+
+.event-detail h3 {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    font-weight: 500;
+}
+
+.event-detail p {
+    line-height: 1.6;
+}
+
+.event-address {
+    opacity: 0.65;
+    font-size: 14px;
+}
+
+.event-icon {
+    font-size: 28px;
+    margin-bottom: 18px;
+}
+
+
+/* ---------------------------------------------------------
+   BOTONES
+   --------------------------------------------------------- */
+
+.wedding-button {
+    display: inline-block;
+
+    border: 1px solid #65594d;
+
+    padding:
+        15px 28px;
+
+    color: #3f3a34;
+
+    background: transparent;
+
+    text-decoration: none;
+
+    font-size: 11px;
+
+    letter-spacing: 0.15em;
+
+    text-transform: uppercase;
+
+    transition:
+        all 0.25s ease;
+
+    cursor: pointer;
+}
+
+.wedding-button:hover {
+    background: #3f3a34;
+    color: #fff;
+}
+
+.wedding-button-main {
+    background: #65594d;
+    color: #fff;
+}
+
+
+/* ---------------------------------------------------------
+   RSVP
+   --------------------------------------------------------- */
+
+.wedding-rsvp {
+    background: #eee7dc;
+}
+
+
+/* ---------------------------------------------------------
+   INFORMACIÓN
+   --------------------------------------------------------- */
+
+.wedding-info {
+    background: #f8f4ec;
+    align-items: flex-start;
+}
+
+.info-card {
+    max-width: 700px;
+
+    margin:
+        0 auto 18px;
+
+    padding:
+        25px 30px;
+
+    border:
+        1px solid rgba(63,58,52,0.15);
+
+    text-align: left;
+}
+
+.info-card h3 {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-weight: 400;
+
+    font-size: 25px;
+
+    margin-top: 0;
+}
+
+.info-card p {
+    line-height: 1.7;
+    opacity: 0.8;
+}
+
+
+/* ---------------------------------------------------------
+   PIE
+   --------------------------------------------------------- */
+
+.wedding-footer {
+    padding:
+        50px 20px;
+
+    text-align: center;
+
+    background: #e4dbcf;
+}
+
+.wedding-footer p {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 25px;
+}
+
+.wedding-footer span {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.6;
+}
+
+
+/* ---------------------------------------------------------
+   MÓVIL
+   --------------------------------------------------------- */
+
+@media (max-width: 700px) {
+
+    .event-details {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .wedding-countdown {
+        gap: 15px;
+    }
+
+    .wedding-countdown strong {
+        font-size: 24px;
+    }
+
+}
