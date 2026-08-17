@@ -1,0 +1,286 @@
+/* =========================================================
+   INVITACIÓN PERSONALIZADA - SOBRE
+   ========================================================= */
+
+:root {
+    --paper: #f5f0e7;
+    --paper-light: #fbf8f2;
+    --ink: #3d3a35;
+    --accent: #8b6f5a;
+    --accent-dark: #6e5644;
+    --shadow: rgba(40, 30, 20, 0.15);
+}
+
+/* Bloqueamos el scroll mientras el sobre está cerrado */
+body.invitation-locked {
+    overflow: hidden;
+}
+
+/* ---------------------------------------------------------
+   CAPA DEL SOBRE
+   --------------------------------------------------------- */
+
+#invitation-envelope {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(circle at center,
+            rgba(255,255,255,0.45) 0%,
+            rgba(245,240,231,0.96) 70%),
+        var(--paper);
+
+    transition:
+        opacity 0.9s ease,
+        visibility 0.9s ease;
+}
+
+/* Cuando se abre */
+#invitation-envelope.is-open {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* ---------------------------------------------------------
+   CONTENIDO
+   --------------------------------------------------------- */
+
+.invitation-envelope-content {
+    width: min(88vw, 430px);
+    text-align: center;
+    color: var(--ink);
+}
+
+/* ---------------------------------------------------------
+   NOMBRES
+   --------------------------------------------------------- */
+
+.invitation-guest-label {
+    margin-bottom: 24px;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 14px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+
+    opacity: 0.75;
+}
+
+.invitation-guest-names {
+    margin-bottom: 42px;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(27px, 8vw, 42px);
+    line-height: 1.15;
+    font-weight: 400;
+
+    color: var(--ink);
+}
+
+/* ---------------------------------------------------------
+   SOBRE
+   --------------------------------------------------------- */
+
+.envelope {
+    position: relative;
+
+    width: 100%;
+    aspect-ratio: 1.5;
+
+    margin: 0 auto 30px;
+
+    cursor: pointer;
+
+    filter:
+        drop-shadow(0 16px 25px var(--shadow));
+}
+
+/* Cuerpo */
+.envelope-body {
+    position: absolute;
+    inset: 0;
+
+    background: var(--paper-light);
+
+    border: 1px solid rgba(61,58,53,0.15);
+    border-radius: 3px;
+
+    overflow: hidden;
+}
+
+/* Triángulo inferior */
+.envelope-body::before {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 65%;
+
+    background: #eee7db;
+
+    clip-path: polygon(
+        0 0,
+        50% 62%,
+        100% 0,
+        100% 100%,
+        0 100%
+    );
+}
+
+/* Solapa superior */
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 70%;
+
+    background: #f8f4ec;
+
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        50% 100%
+    );
+
+    transform-origin: top center;
+
+    transition:
+        transform 1s cubic-bezier(.22,.61,.36,1);
+}
+
+/* Animación de apertura */
+.envelope.is-opening .envelope-flap {
+    transform: rotateX(180deg);
+}
+
+/* ---------------------------------------------------------
+   SELLO
+   --------------------------------------------------------- */
+
+.envelope-seal {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 66px;
+    height: 66px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: var(--accent);
+    color: #fffaf3;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 18px;
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,0.15);
+
+    z-index: 5;
+
+    transition:
+        transform 0.7s ease,
+        opacity 0.5s ease;
+}
+
+.envelope.is-opening .envelope-seal {
+    transform:
+        translate(-50%, -50%)
+        scale(0.7)
+        rotate(-12deg);
+
+    opacity: 0;
+}
+
+/* ---------------------------------------------------------
+   TEXTO INFERIOR
+   --------------------------------------------------------- */
+
+.invitation-open-hint {
+    margin-top: 15px;
+
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+
+    opacity: 0.65;
+
+    animation: invitation-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes invitation-pulse {
+    0%, 100% {
+        opacity: 0.45;
+    }
+
+    50% {
+        opacity: 0.9;
+    }
+}
+
+/* ---------------------------------------------------------
+   INDICADOR DE DESLIZAR
+   --------------------------------------------------------- */
+
+.invitation-swipe {
+    margin-top: 18px;
+
+    font-size: 20px;
+
+    opacity: 0.45;
+
+    animation:
+        invitation-arrow 1.8s ease-in-out infinite;
+}
+
+@keyframes invitation-arrow {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(7px);
+    }
+}
+
+/* ---------------------------------------------------------
+   MÓVIL
+   --------------------------------------------------------- */
+
+@media (max-width: 480px) {
+
+    .invitation-envelope-content {
+        width: 86vw;
+    }
+
+    .invitation-guest-names {
+        margin-bottom: 30px;
+    }
+
+    .envelope-seal {
+        width: 58px;
+        height: 58px;
+        font-size: 16px;
+    }
+}
