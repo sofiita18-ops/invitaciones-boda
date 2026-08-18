@@ -476,7 +476,7 @@ const rsvpScript =
     document.createElement('script');
 
 rsvpScript.src =
-    'js/rsvp.js';
+    'js/rsvp-v2.js';
 
 rsvpScript.onload = function () {
 
