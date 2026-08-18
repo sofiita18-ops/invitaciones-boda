@@ -289,7 +289,7 @@ body.invitation-locked {
    WEB DE LA BODA
    ========================================================= */
 
-body.our-site-mode > *:not(#custom-wedding-site):not(#invitation-envelope) {
+body.our-site-mode > *:not(#custom-wedding-site):not(#invitation-envelope):not(#rsvp-modal) {
     display: none !important;
 }
 
