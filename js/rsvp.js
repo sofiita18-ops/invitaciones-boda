@@ -1,7 +1,9 @@
 (function () {
 
     'use strict';
-
+    
+const API_URL =
+    'https://script.google.com/macros/s/AKfycbz5zrEtFPTINYTnNYnidS0WJ-4Ep-DbMjdlRF-b2tlhqRyQqBT8mQnWuw1C7CbwAs8fGw/exec';
 
     /*
      * ----------------------------------------------------
@@ -389,9 +391,7 @@
                     );
 
 
-                const api =
-                    window.invitacionBoda
-                        .apiUrl;
+                const api = API_URL;
 
 
                 script.src =
@@ -1085,9 +1085,7 @@
                     );
 
 
-                const api =
-                    window.invitacionBoda
-                        .apiUrl;
+                const api = API_URL;
 
 
                 const payload =
@@ -1199,5 +1197,53 @@
     window.abrirFormularioRsvp =
         abrirFormularioRsvp;
 
+/*
+ * ----------------------------------------------------
+ * CONECTAR BOTÓN "CONFIRMAR ASISTENCIA"
+ * ----------------------------------------------------
+ */
 
+function conectarBotonRsvp() {
+
+    const boton =
+        document.getElementById('open-rsvp');
+
+    if (!boton) {
+        return;
+    }
+
+    boton.addEventListener('click', function () {
+
+        if (
+            typeof window.abrirFormularioRsvp ===
+            'function'
+        ) {
+            window.abrirFormularioRsvp();
+        } else {
+            console.error(
+                'La función abrirFormularioRsvp no está disponible.'
+            );
+        }
+
+    });
+}
+
+
+/*
+ * Esperar a que exista el botón
+ */
+if (document.readyState === 'loading') {
+
+    document.addEventListener(
+        'DOMContentLoaded',
+        conectarBotonRsvp
+    );
+
+} else {
+
+    conectarBotonRsvp();
+
+}
+
+    
 })();
