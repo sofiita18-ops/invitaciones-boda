@@ -1221,47 +1221,34 @@ console.log(
  * ----------------------------------------------------
  */
 
-function conectarBotonRsvp() {
+/*
+ * ----------------------------------------------------
+ * CONECTAR EL BOTÓN DE FORMA ROBUSTA
+ * ----------------------------------------------------
+ *
+ * El botón se crea después, dentro de custom.js.
+ * Por eso usamos delegación de eventos.
+ */
 
-    const boton =
-        document.getElementById('open-rsvp');
+document.addEventListener(
+    'click',
+    function (event) {
 
-    if (!boton) {
-        return;
-    }
+        const boton =
+            event.target.closest('#open-rsvp');
 
-    boton.addEventListener('click', function () {
-
-        if (
-            typeof window.abrirFormularioRsvp ===
-            'function'
-        ) {
-            window.abrirFormularioRsvp();
-        } else {
-            console.error(
-                'La función abrirFormularioRsvp no está disponible.'
-            );
+        if (!boton) {
+            return;
         }
 
-    });
-}
+        console.log(
+            '💌 Botón RSVP detectado'
+        );
 
+        abrirFormularioRsvp();
 
-/*
- * Esperar a que exista el botón
- */
-if (document.readyState === 'loading') {
-
-    document.addEventListener(
-        'DOMContentLoaded',
-        conectarBotonRsvp
-    );
-
-} else {
-
-    conectarBotonRsvp();
-
-}
+    }
+);
 
     
 })();
