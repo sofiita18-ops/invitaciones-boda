@@ -128,17 +128,35 @@ const API_URL =
 
 
         document.body.classList.add(
-            'rsvp-open'
-        );
+    'rsvp-open'
+);
 
+/*
+ * Mostrar el formulario inmediatamente.
+ * Usamos estilos inline para evitar que
+ * ninguna otra regla CSS lo mantenga oculto.
+ */
+modal.style.display = 'block';
+modal.style.visibility = 'visible';
+modal.style.opacity = '1';
+modal.style.pointerEvents = 'auto';
+modal.style.zIndex = '100000';
 
-        setTimeout(() => {
+const panel =
+    modal.querySelector('.rsvp-panel');
 
-            modal.classList.add(
-                'is-visible'
-            );
+if (panel) {
 
-        }, 20);
+    panel.style.opacity = '1';
+    panel.style.visibility = 'visible';
+    panel.style.transform =
+        'translate(-50%, -50%)';
+
+}
+
+console.log(
+    '✅ Modal RSVP creado y mostrado'
+);
 
 
         /*
