@@ -464,27 +464,48 @@
         `;
 
         document.body.appendChild(web);
+        
+const rsvpScript =
+    document.createElement('script');
 
+rsvpScript.src =
+    'js/rsvp.js';
+
+rsvpScript.defer = true;
+
+document.body.appendChild(
+    rsvpScript
+);
+        
         iniciarCuentaAtras();
 
-        const botonRsvp =
-            document.getElementById('open-rsvp');
+       const botonRsvp =
+    document.getElementById('open-rsvp');
 
-        if (botonRsvp) {
+if (botonRsvp) {
 
-            botonRsvp.addEventListener(
-                'click',
-                () => {
+    botonRsvp.addEventListener(
+        'click',
+        () => {
 
-                    document
-                        .getElementById('confirmacion')
-                        .scrollIntoView({
-                            behavior: 'smooth'
-                        });
+            if (
+                typeof window.abrirFormularioRsvp ===
+                'function'
+            ) {
 
-                }
-            );
+                window.abrirFormularioRsvp();
+
+            } else {
+
+                console.error(
+                    'rsvp.js todavía no está cargado.'
+                );
+
+            }
+
         }
+    );
+}
     }
 
 
@@ -644,7 +665,8 @@
 
             window.invitacionBoda = {
                 id: invitacionId,
-                invitados: data.invitados
+                invitados: data.invitados,
+                apiUrl: API_URL
             };
 
             crearSobre(
