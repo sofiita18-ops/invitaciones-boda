@@ -465,47 +465,78 @@
 
         document.body.appendChild(web);
         
+/////// DESDE AQUI 
+/*
+ * --------------------------------------------------------
+ * Cargar RSVP y después conectar el botón
+ * --------------------------------------------------------
+ */
+
 const rsvpScript =
     document.createElement('script');
 
 rsvpScript.src =
     'js/rsvp.js';
 
-rsvpScript.defer = true;
+rsvpScript.onload = function () {
+
+    console.log('✅ rsvp.js cargado correctamente');
+
+    const botonRsvp =
+        document.getElementById('open-rsvp');
+
+    if (!botonRsvp) {
+        console.error(
+            '❌ No encuentro el botón #open-rsvp'
+        );
+        return;
+    }
+
+    if (
+        typeof window.abrirFormularioRsvp !==
+        'function'
+    ) {
+        console.error(
+            '❌ rsvp.js se ha cargado, pero no existe abrirFormularioRsvp'
+        );
+        return;
+    }
+
+    botonRsvp.addEventListener(
+        'click',
+        function () {
+
+            console.log(
+                '💌 Abriendo formulario RSVP...'
+            );
+
+            window.abrirFormularioRsvp();
+
+        }
+    );
+
+    console.log(
+        '✅ Botón Confirmar asistencia conectado'
+    );
+};
+
+rsvpScript.onerror = function () {
+
+    console.error(
+        '❌ No se ha podido cargar js/rsvp.js'
+    );
+
+};
 
 document.body.appendChild(
     rsvpScript
 );
-        
-        iniciarCuentaAtras();
 
-       const botonRsvp =
-    document.getElementById('open-rsvp');
 
-if (botonRsvp) {
-
-    botonRsvp.addEventListener(
-        'click',
-        () => {
-
-            if (
-                typeof window.abrirFormularioRsvp ===
-                'function'
-            ) {
-
-                window.abrirFormularioRsvp();
-
-            } else {
-
-                console.error(
-                    'rsvp.js todavía no está cargado.'
-                );
-
-            }
-
-        }
-    );
-}
+/*
+ * Cuenta atrás
+ */
+iniciarCuentaAtras();
     }
 
 
