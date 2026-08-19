@@ -1136,6 +1136,39 @@ document
                 'Guardando...';
 
 
+/*
+ * Comprobar que todos los invitados
+ * han indicado si asistirán o no.
+ */
+const personasRsvp =
+    Array.from(
+        document.querySelectorAll(
+            '.rsvp-person'
+        )
+    );
+
+const faltaConfirmacion =
+    personasRsvp.some(
+        function (persona) {
+
+            const index =
+                persona.dataset.index;
+
+            return !persona.querySelector(
+                `input[name="asistencia-${index}"]:checked`
+            );
+
+        }
+    );
+
+if (faltaConfirmacion) {
+
+    mensaje.textContent =
+        'Por favor, indica si asistirás antes de guardar la respuesta.';
+
+    return;
+}
+            
             /*
              * Recoger los datos de cada invitado
              */
