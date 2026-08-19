@@ -1127,15 +1127,6 @@ document
             }
 
 
-            /*
-             * Evitar dobles envíos
-             */
-            boton.disabled = true;
-
-            boton.textContent =
-                'Guardando...';
-
-
 /*
  * Comprobar que todos los invitados
  * han indicado si asistirán o no.
@@ -1168,7 +1159,15 @@ if (faltaConfirmacion) {
 
     return;
 }
-            
+        /*
+ * Evitar dobles envíos
+ * Solo bloqueamos el botón después
+ * de comprobar que el formulario es válido.
+ */
+boton.disabled = true;
+
+boton.textContent =
+    'Guardando...';    
             /*
              * Recoger los datos de cada invitado
              */
