@@ -711,7 +711,7 @@ function abrirFormularioRsvp() {
 
     const datos =
         window.invitacionBoda;
-cargarRespuestasRsvp();
+
 
     if (
         !datos ||
@@ -1097,25 +1097,263 @@ console.log(
 
 
     /*
-     * Guardar
-     * (por ahora solo prueba visual)
-     */
-    document
-        .getElementById('rsvp-save')
-        .addEventListener(
-            'click',
-            function () {
+ * Guardar respuesta RSVP
+ */
+document
+    .getElementById('rsvp-save')
+    .addEventListener(
+        'click',
+        async function () {
 
-                document
-                    .getElementById(
-                        'rsvp-message'
+            const boton =
+                document.getElementById('rsvp-save');
+
+            const mensaje =
+                document.getElementById('rsvp-message');
+
+            const datos =
+                window.invitacionBoda;
+
+            if (
+                !datos ||
+                !datos.id ||
+                !datos.invitados
+            ) {
+
+                mensaje.textContent =
+                    'No se han podido cargar los datos de la invitación.';
+
+                return;
+            }
+
+
+            /*
+             * Evitar dobles envíos
+             */
+            boton.disabled = true;
+
+            boton.textContent =
+                'Guardando...';
+
+
+            /*
+             * Recoger los datos de cada invitado
+             */
+            const invitados =
+                Array.from(
+                    document.querySelectorAll(
+                        '.rsvp-person'
                     )
-                    .textContent =
-                    'Formulario preparado correctamente ❤️';
+                ).map(
+                    function (persona) {
+
+                        const index =
+                            persona.dataset.index;
+
+                        const nombre =
+                            persona
+                                .querySelector('h3')
+                                ?.textContent
+                                ?.trim() || '';
+
+
+                        const asistencia =
+                            persona.querySelector(
+                                `input[name="asistencia-${index}"]:checked`
+                            )?.value || '';
+
+
+                        const menu =
+                            persona
+                                .querySelector('.rsvp-menu')
+                                ?.value
+                                ?.trim() || '';
+
+
+                        const alergias =
+                            persona
+                                .querySelector('.rsvp-allergies')
+                                ?.value
+                                ?.trim() || '';
+
+
+                        const alojamiento =
+                            persona.querySelector(
+                                `input[name="alojamiento-${index}"]:checked`
+                            )?.value || '';
+
+
+                        const observaciones =
+                            persona
+                                .querySelector('.rsvp-person-notes')
+                                ?.value
+                                ?.trim() || '';
+
+
+                        return {
+                            nombre:
+                                nombre,
+
+                            asistencia:
+                                asistencia === 'SI'
+                                    ? 'Sí'
+                                    : asistencia === 'NO'
+                                        ? 'No'
+                                        : '',
+
+                            menu:
+                                menu,
+
+                            alergias:
+                                alergias,
+
+                            alojamiento:
+                                alojamiento === 'SI'
+                                    ? 'Sí'
+                                    : alojamiento === 'NO'
+                                        ? 'No'
+                                        : '',
+
+                            observaciones:
+                                observaciones
+                        };
+
+                    }
+                );
+
+
+            /*
+             * Comentario general
+             */
+            const comentarioGeneral =
+                document
+                    .getElementById('rsvp-notes')
+                    ?.value
+                    ?.trim() || '';
+
+
+            /*
+             * Añadir comentario general
+             * a las observaciones del primer invitado.
+             */
+            if (
+                comentarioGeneral &&
+                invitados.length
+            ) {
+
+                invitados[0].observaciones =
+                    invitados[0].observaciones
+                        ? invitados[0].observaciones +
+                          ' | ' +
+                          comentarioGeneral
+                        : comentarioGeneral;
 
             }
-        );
 
+
+            /*
+             * Construir el objeto que recibirá Apps Script
+             */
+            const payload = {
+
+                id:
+                    datos.id,
+
+                invitados:
+                    invitados
+
+            };
+
+
+            console.log(
+                '📤 Enviando RSVP:',
+                payload
+            );
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        API_URL,
+                        {
+                            method: 'POST',
+
+                            headers: {
+                                'Content-Type':
+                                    'text/plain;charset=utf-8'
+                            },
+
+                            body:
+                                JSON.stringify(
+                                    payload
+                                )
+                        }
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        'Error HTTP ' +
+                        response.status
+                    );
+
+                }
+
+
+                const resultado =
+                    await response.json();
+
+
+                console.log(
+                    '📥 Respuesta Apps Script:',
+                    resultado
+                );
+
+
+                if (!resultado.ok) {
+
+                    throw new Error(
+                        resultado.error ||
+                        'No se pudo guardar la respuesta.'
+                    );
+
+                }
+
+
+                /*
+                 * Éxito
+                 */
+                mensaje.textContent =
+                    '¡Respuesta guardada correctamente! ❤️';
+
+
+                boton.textContent =
+                    'Respuesta guardada';
+
+
+            } catch (error) {
+
+                console.error(
+                    '❌ Error guardando RSVP:',
+                    error
+                );
+
+
+                mensaje.textContent =
+                    'No hemos podido guardar la respuesta. Inténtalo de nuevo.';
+
+
+                boton.disabled = false;
+
+                boton.textContent =
+                    'Guardar respuesta';
+
+            }
+
+        }
+    );
 
     /*
      * Mostrar
