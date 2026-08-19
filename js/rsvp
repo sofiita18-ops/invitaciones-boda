@@ -1,0 +1,493 @@
+(function () {
+
+    'use strict';
+
+    console.log('✅ Nuestro RSVP está cargado');
+
+    function abrirRsvp() {
+
+        // Evitar abrirlo dos veces
+        if (document.getElementById('rsvp-screen')) {
+            return;
+        }
+
+        const invitados =
+            window.invitacionBoda?.invitados || [];
+
+        if (!invitados.length) {
+
+            console.error(
+                '❌ No hay invitados disponibles'
+            );
+
+            return;
+        }
+
+        console.log(
+            '👥 Invitados para el RSVP:',
+            invitados
+        );
+
+        /*
+         * Crear pantalla del formulario
+         */
+        const pantalla =
+            document.createElement('div');
+
+        pantalla.id = 'rsvp-screen';
+
+        pantalla.innerHTML = `
+
+            <div class="rsvp-screen-inner">
+
+                <button
+                    type="button"
+                    class="rsvp-close"
+                    aria-label="Cerrar"
+                >
+                    ×
+                </button>
+
+                <div class="rsvp-header">
+
+                    <p class="wedding-kicker">
+                        Confirmación
+                    </p>
+
+                    <h2>
+                        ¿Nos acompañáis?
+                    </h2>
+
+                    <p class="rsvp-intro">
+                        Confirma la asistencia de todas
+                        las personas incluidas en esta invitación.
+                    </p>
+
+                </div>
+
+                <div
+                    id="rsvp-people"
+                    class="rsvp-people"
+                ></div>
+
+                <div class="rsvp-general">
+
+                    <label>
+                        ¿Hay algo más que debamos saber?
+                    </label>
+
+                    <textarea
+                        id="rsvp-notes"
+                        rows="4"
+                        placeholder="Alergias, necesidades especiales, etc."
+                    ></textarea>
+
+                </div>
+
+                <button
+                    type="button"
+                    id="rsvp-save"
+                    class="wedding-button wedding-button-main"
+                >
+                    Guardar respuesta
+                </button>
+
+                <p
+                    id="rsvp-message"
+                    class="rsvp-message"
+                ></p>
+
+            </div>
+        `;
+
+        document.body.appendChild(
+            pantalla
+        );
+
+        /*
+         * Crear un bloque para cada invitado
+         */
+        const contenedor =
+            document.getElementById(
+                'rsvp-people'
+            );
+
+        invitados.forEach(
+            function (invitado, index) {
+
+                const persona =
+                    document.createElement('div');
+
+                persona.className =
+                    'rsvp-person';
+
+                persona.dataset.index =
+                    index;
+
+                persona.dataset.id =
+                    invitado.ID || '';
+
+                persona.innerHTML = `
+
+                    <h3>
+                        ${escapar(
+                            invitado.Nombre || ''
+                        )}
+                    </h3>
+
+                    <p class="rsvp-question">
+                        ¿Vas a asistir?
+                    </p>
+
+                    <div class="rsvp-options">
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="asistencia-${index}"
+                                value="SI"
+                            >
+                            <span>
+                                Sí, allí estaré
+                            </span>
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="asistencia-${index}"
+                                value="NO"
+                            >
+                            <span>
+                                No podré asistir
+                            </span>
+                        </label>
+
+                    </div>
+
+                    <div
+                        class="rsvp-extra"
+                        hidden
+                    >
+
+                        <label>
+                            Menú especial
+                        </label>
+
+                        <input
+                            type="text"
+                            class="rsvp-menu"
+                            placeholder="Si necesitas un menú especial..."
+                        >
+
+                        <label>
+                            Alergias / intolerancias
+                        </label>
+
+                        <input
+                            type="text"
+                            class="rsvp-allergies"
+                            placeholder="Indica cuáles..."
+                        >
+
+                        <label>
+                            ¿Necesitas alojamiento?
+                        </label>
+
+                        <div class="rsvp-options">
+
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="hotel-${index}"
+                                    value="SI"
+                                >
+                                <span>Sí</span>
+                            </label>
+
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="hotel-${index}"
+                                    value="NO"
+                                >
+                                <span>No</span>
+                            </label>
+
+                        </div>
+
+                        <label>
+                            Comentarios
+                        </label>
+
+                        <textarea
+                            class="rsvp-person-notes"
+                            rows="3"
+                            placeholder="Lo que quieras contarnos..."
+                        ></textarea>
+
+                    </div>
+                `;
+
+                contenedor.appendChild(
+                    persona
+                );
+
+                /*
+                 * Mostrar campos adicionales
+                 * únicamente si asiste
+                 */
+                const radios =
+                    persona.querySelectorAll(
+                        `input[name="asistencia-${index}"]`
+                    );
+
+                radios.forEach(
+                    function (radio) {
+
+                        radio.addEventListener(
+                            'change',
+                            function () {
+
+                                const extras =
+                                    persona.querySelector(
+                                        '.rsvp-extra'
+                                    );
+
+                                if (
+                                    this.value === 'SI'
+                                ) {
+
+                                    extras.hidden =
+                                        false;
+
+                                } else {
+
+                                    extras.hidden =
+                                        true;
+
+                                }
+
+                            }
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+        /*
+         * Cerrar
+         */
+        pantalla
+            .querySelector('.rsvp-close')
+            .addEventListener(
+                'click',
+                cerrarRsvp
+            );
+
+        /*
+         * Guardar
+         *
+         * De momento solo recopilamos
+         * los datos. En el siguiente paso
+         * los enviaremos a Google Sheets.
+         */
+        pantalla
+            .querySelector('#rsvp-save')
+            .addEventListener(
+                'click',
+                recogerRespuesta
+            );
+
+        /*
+         * Animación de entrada
+         */
+        requestAnimationFrame(
+            function () {
+
+                pantalla.classList.add(
+                    'is-visible'
+                );
+
+            }
+        );
+
+        document.body.classList.add(
+            'rsvp-open'
+        );
+    }
+
+
+    function recogerRespuesta() {
+
+        const personas =
+            document.querySelectorAll(
+                '.rsvp-person'
+            );
+
+        const respuestas = [];
+
+        let correcto = true;
+
+        personas.forEach(
+            function (persona) {
+
+                const index =
+                    persona.dataset.index;
+
+                const asistencia =
+                    persona.querySelector(
+                        `input[name="asistencia-${index}"]:checked`
+                    );
+
+                if (!asistencia) {
+
+                    correcto = false;
+
+                    return;
+
+                }
+
+                respuestas.push({
+
+                    id:
+                        persona.dataset.id,
+
+                    nombre:
+                        persona.querySelector('h3')
+                            .textContent,
+
+                    asistencia:
+                        asistencia.value,
+
+                    menu:
+                        persona.querySelector(
+                            '.rsvp-menu'
+                        )?.value || '',
+
+                    alergias:
+                        persona.querySelector(
+                            '.rsvp-allergies'
+                        )?.value || '',
+
+                    alojamiento:
+                        persona.querySelector(
+                            `input[name="hotel-${index}"]:checked`
+                        )?.value || '',
+
+                    notas:
+                        persona.querySelector(
+                            '.rsvp-person-notes'
+                        )?.value || ''
+
+                });
+
+            }
+        );
+
+        const mensaje =
+            document.getElementById(
+                'rsvp-message'
+            );
+
+        if (!correcto) {
+
+            mensaje.textContent =
+                'Indica si todas las personas de la invitación asistirán o no.';
+
+            return;
+
+        }
+
+        console.log(
+            '📝 Respuesta preparada:',
+            {
+                id:
+                    window.invitacionBoda.id,
+
+                invitados:
+                    respuestas,
+
+                notas:
+                    document.getElementById(
+                        'rsvp-notes'
+                    ).value
+            }
+        );
+
+        mensaje.textContent =
+            '¡Perfecto! La respuesta está preparada.';
+
+    }
+
+
+    function cerrarRsvp() {
+
+        const pantalla =
+            document.getElementById(
+                'rsvp-screen'
+            );
+
+        if (!pantalla) {
+            return;
+        }
+
+        pantalla.classList.remove(
+            'is-visible'
+        );
+
+        setTimeout(
+            function () {
+
+                pantalla.remove();
+
+                document.body.classList.remove(
+                    'rsvp-open'
+                );
+
+            },
+            300
+        );
+    }
+
+
+    function escapar(texto) {
+
+        return String(texto)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+
+    }
+
+
+    /*
+     * El botón existe desde que se crea
+     * nuestra web, así que podemos
+     * conectarlo directamente.
+     */
+    document.addEventListener(
+        'click',
+        function (event) {
+
+            const boton =
+                event.target.closest(
+                    '#open-rsvp'
+                );
+
+            if (!boton) {
+                return;
+            }
+
+            event.preventDefault();
+
+            abrirRsvp();
+
+        }
+    );
+
+})();
