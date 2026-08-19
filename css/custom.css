@@ -983,3 +983,257 @@ body.rsvp-open {
         text-align: center;
     }
 }
+
+
+/* =========================================================
+   RSVP NUEVO
+   ========================================================= */
+
+#rsvp-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+
+    background: #f8f4ec;
+
+    overflow-y: auto;
+
+    opacity: 0;
+
+    transform: translateY(20px);
+
+    transition:
+        opacity .3s ease,
+        transform .3s ease;
+}
+
+#rsvp-screen.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.rsvp-screen-inner {
+    width: min(
+        760px,
+        calc(100% - 32px)
+    );
+
+    margin: 0 auto;
+
+    padding:
+        60px 0 80px;
+}
+
+.rsvp-close {
+    position: fixed;
+
+    top: 20px;
+    right: 25px;
+
+    width: 42px;
+    height: 42px;
+
+    border:
+        1px solid #8c7d6d;
+
+    border-radius: 50%;
+
+    background:
+        #f8f4ec;
+
+    color:
+        #3f3a34;
+
+    font-size:
+        25px;
+
+    cursor: pointer;
+
+    z-index: 10;
+}
+
+.rsvp-header {
+    text-align: center;
+
+    margin-bottom:
+        45px;
+}
+
+.rsvp-header h2 {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        clamp(40px, 8vw, 60px);
+
+    font-weight:
+        400;
+
+    margin:
+        12px 0 20px;
+}
+
+.rsvp-intro {
+    max-width: 560px;
+
+    margin:
+        auto;
+
+    line-height:
+        1.7;
+
+    opacity:
+        .75;
+}
+
+.rsvp-person {
+    padding:
+        30px 0;
+
+    border-top:
+        1px solid rgba(
+            63,
+            58,
+            52,
+            .15
+        );
+}
+
+.rsvp-person h3 {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        30px;
+
+    font-weight:
+        400;
+
+    margin:
+        0 0 20px;
+}
+
+.rsvp-question {
+    font-size:
+        12px;
+
+    letter-spacing:
+        .1em;
+
+    text-transform:
+        uppercase;
+}
+
+.rsvp-options {
+    display:
+        flex;
+
+    gap:
+        10px;
+
+    flex-wrap:
+        wrap;
+
+    margin:
+        12px 0 25px;
+}
+
+.rsvp-options label {
+    cursor:
+        pointer;
+}
+
+.rsvp-options input {
+    display:
+        none;
+}
+
+.rsvp-options span {
+    display:
+        inline-block;
+
+    padding:
+        12px 18px;
+
+    border:
+        1px solid #cfc5b8;
+
+    background:
+        transparent;
+
+    transition:
+        all .2s ease;
+}
+
+.rsvp-options input:checked + span {
+    background:
+        #65594d;
+
+    color:
+        white;
+
+    border-color:
+        #65594d;
+}
+
+.rsvp-extra[hidden] {
+    display:
+        none;
+}
+
+.rsvp-extra label,
+.rsvp-general label {
+    display:
+        block;
+
+    margin:
+        18px 0 8px;
+
+    font-size:
+        11px;
+
+    letter-spacing:
+        .1em;
+
+    text-transform:
+        uppercase;
+}
+
+.rsvp-extra input[type="text"],
+.rsvp-extra textarea,
+.rsvp-general textarea {
+    width:
+        100%;
+
+    box-sizing:
+        border-box;
+
+    padding:
+        13px;
+
+    border:
+        1px solid #cfc5b8;
+
+    background:
+        #fffdf9;
+
+    font:
+        inherit;
+}
+
+.rsvp-general {
+    margin:
+        30px 0;
+}
+
+.rsvp-message {
+    text-align:
+        center;
+
+    margin-top:
+        20px;
+}
