@@ -228,7 +228,7 @@
                     </p>
 
                     <h1>
-                        Sofía <span>&</span> X
+                        Sofía <span>&</span> Pilar
                     </h1>
 
                     <p class="wedding-date">
@@ -515,7 +515,7 @@ iniciarCuentaAtras();
     function iniciarCuentaAtras() {
 
         const fechaBoda =
-            new Date('2030-01-01T18:00:00');
+            new Date('2027-06-05T20:00:00');
 
         const elemento =
             document.getElementById(
