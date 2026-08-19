@@ -814,10 +814,74 @@ function abrirFormularioRsvp() {
     `;
 
 
-    document.body.appendChild(
-        pantalla
-    );
+document.body.appendChild(pantalla);
 
+/*
+ * Forzar que el RSVP sea visible.
+ * Esto evita que cualquier estilo heredado,
+ * caché o regla externa pueda ocultarlo.
+ */
+pantalla.style.setProperty(
+    'display',
+    'block',
+    'important'
+);
+
+pantalla.style.setProperty(
+    'position',
+    'fixed',
+    'important'
+);
+
+pantalla.style.setProperty(
+    'inset',
+    '0',
+    'important'
+);
+
+pantalla.style.setProperty(
+    'z-index',
+    '2147483647',
+    'important'
+);
+
+pantalla.style.setProperty(
+    'background',
+    '#f8f4ec',
+    'important'
+);
+
+pantalla.style.setProperty(
+    'visibility',
+    'visible',
+    'important'
+);
+
+pantalla.style.setProperty(
+    'opacity',
+    '1',
+    'important'
+);
+
+pantalla.style.setProperty(
+    'transform',
+    'none',
+    'important'
+);
+
+pantalla.style.setProperty(
+    'overflow-y',
+    'auto',
+    'important'
+);
+
+document.body.classList.add(
+    'rsvp-open'
+);
+
+console.log(
+    '✅ RSVP visible forzado'
+);
 
     /*
      * Crear cada invitado
@@ -1060,15 +1124,7 @@ function abrirFormularioRsvp() {
     );
 
 
-    requestAnimationFrame(
-        function () {
 
-            pantalla.classList.add(
-                'is-visible'
-            );
-
-        }
-    );
 
 
     console.log(
