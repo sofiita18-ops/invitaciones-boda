@@ -1020,16 +1020,6 @@ console.log(
                     </div>
 
 
-                    <label>
-                        Comentarios
-                    </label>
-
-                    <textarea
-                        class="rsvp-person-notes"
-                        rows="3"
-                        placeholder="Lo que quieras contarnos..."
-                    ></textarea>
-
                 </div>
             `;
 
@@ -1062,18 +1052,55 @@ console.log(
 
 
                             if (
-                                this.value === 'SI'
-                            ) {
+    this.value === 'SI'
+) {
 
-                                extra.hidden =
-                                    false;
+    extra.hidden =
+        false;
 
-                            } else {
+} else {
 
-                                extra.hidden =
-                                    true;
+    extra.hidden =
+        true;
 
-                            }
+
+    /*
+     * Si cambia a NO,
+     * limpiamos todos los datos extra.
+     */
+
+    const menu =
+        extra.querySelector(
+            '.rsvp-menu'
+        );
+
+    if (menu) {
+        menu.value = '';
+    }
+
+
+    const alergias =
+        extra.querySelector(
+            '.rsvp-allergies'
+        );
+
+    if (alergias) {
+        alergias.value = '';
+    }
+
+
+    const alojamiento =
+        extra.querySelectorAll(
+            `input[name="alojamiento-${index}"]`
+        );
+
+    alojamiento.forEach(
+        function (radio) {
+            radio.checked = false;
+        }
+    );
+
+}
 
                         }
                     );
@@ -1215,13 +1242,6 @@ boton.textContent =
                             )?.value || '';
 
 
-                        const observaciones =
-                            persona
-                                .querySelector('.rsvp-person-notes')
-                                ?.value
-                                ?.trim() || '';
-
-
                         return {
                             nombre:
                                 nombre,
@@ -1246,8 +1266,6 @@ boton.textContent =
                                         ? 'No'
                                         : '',
 
-                            observaciones:
-                                observaciones
                         };
 
                     }
