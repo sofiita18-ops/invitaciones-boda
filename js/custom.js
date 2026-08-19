@@ -711,7 +711,7 @@ function abrirFormularioRsvp() {
 
     const datos =
         window.invitacionBoda;
-
+cargarRespuestasRsvp();
 
     if (
         !datos ||
@@ -815,7 +815,8 @@ function abrirFormularioRsvp() {
 
 
 document.body.appendChild(pantalla);
-
+    
+cargarRespuestasRsvp();
 /*
  * Forzar que el RSVP sea visible.
  * Esto evita que cualquier estilo heredado,
@@ -1167,4 +1168,271 @@ function cerrarFormularioRsvp() {
         300
     );
 }
+
+
+    /*
+ * ========================================================
+ * CARGAR RESPUESTAS EXISTENTES
+ * ========================================================
+ */
+
+function cargarRespuestasRsvp() {
+
+    const datos =
+        window.invitacionBoda;
+
+    if (!datos || !datos.id) {
+        return;
+    }
+
+    const callbackName =
+        'rsvpRead_' + Date.now();
+
+    window[callbackName] =
+        function (respuesta) {
+
+            try {
+
+                if (!respuesta || !respuesta.ok) {
+
+                    console.warn(
+                        'No hay respuestas guardadas todavía.'
+                    );
+
+                    return;
+                }
+
+                const respuestas =
+                    respuesta.respuestas || [];
+
+                console.log(
+                    '✅ Respuestas RSVP cargadas:',
+                    respuestas
+                );
+
+                aplicarRespuestasRsvp(
+                    respuestas
+                );
+
+            } finally {
+
+                delete window[callbackName];
+
+                if (script.parentNode) {
+                    script.remove();
+                }
+
+            }
+        };
+
+
+    const script =
+        document.createElement('script');
+
+
+    script.src =
+        API_URL +
+        '?id=' +
+        encodeURIComponent(datos.id) +
+        '&action=getRsvp' +
+        '&prefix=' +
+        encodeURIComponent(callbackName);
+
+
+    script.onerror =
+        function () {
+
+            console.error(
+                '❌ No se pudieron cargar las respuestas RSVP'
+            );
+
+            delete window[callbackName];
+
+            if (script.parentNode) {
+                script.remove();
+            }
+
+        };
+
+
+    document.body.appendChild(
+        script
+    );
+}
+
+
+/*
+ * ========================================================
+ * APLICAR RESPUESTAS AL FORMULARIO
+ * ========================================================
+ */
+
+function aplicarRespuestasRsvp(
+    respuestas
+) {
+
+    const personas =
+        document.querySelectorAll(
+            '.rsvp-person'
+        );
+
+
+    personas.forEach(
+        function (persona) {
+
+            const nombre =
+                persona
+                    .querySelector('h3')
+                    ?.textContent
+                    ?.trim();
+
+            if (!nombre) {
+                return;
+            }
+
+
+            const respuesta =
+                respuestas.find(
+                    function (item) {
+
+                        return String(
+                            item.Nombre
+                        ).trim()
+                        ===
+                        nombre;
+
+                    }
+                );
+
+
+            if (!respuesta) {
+                return;
+            }
+
+
+            const index =
+                persona.dataset.index;
+
+
+            /*
+             * Asistencia
+             */
+            const asistencia =
+                String(
+                    respuesta.Asistencia || ''
+                ).toLowerCase();
+
+
+            if (
+                asistencia === 'sí' ||
+                asistencia === 'si'
+            ) {
+
+                const radio =
+                    persona.querySelector(
+                        `input[name="asistencia-${index}"][value="SI"]`
+                    );
+
+                if (radio) {
+                    radio.checked = true;
+                    radio.dispatchEvent(
+                        new Event('change')
+                    );
+                }
+
+            } else if (
+                asistencia === 'no'
+            ) {
+
+                const radio =
+                    persona.querySelector(
+                        `input[name="asistencia-${index}"][value="NO"]`
+                    );
+
+                if (radio) {
+                    radio.checked = true;
+                    radio.dispatchEvent(
+                        new Event('change')
+                    );
+                }
+            }
+
+
+            /*
+             * Menú
+             */
+            const menu =
+                persona.querySelector(
+                    '.rsvp-menu'
+                );
+
+            if (menu) {
+
+                menu.value =
+                    respuesta.Menú || '';
+
+            }
+
+
+            /*
+             * Alergias
+             */
+            const alergias =
+                persona.querySelector(
+                    '.rsvp-allergies'
+                );
+
+            if (alergias) {
+
+                alergias.value =
+                    respuesta[
+                        'Alergias / intolerancias'
+                    ] || '';
+
+            }
+
+
+            /*
+             * Alojamiento
+             */
+            const alojamiento =
+                String(
+                    respuesta.Alojamiento || ''
+                ).toLowerCase();
+
+
+            if (alojamiento) {
+
+                const radio =
+                    persona.querySelector(
+                        `input[name="alojamiento-${index}"][value="${alojamiento === 'sí' || alojamiento === 'si' ? 'SI' : 'NO'}"]`
+                    );
+
+                if (radio) {
+                    radio.checked = true;
+                }
+            }
+
+
+            /*
+             * Observaciones
+             */
+            const notas =
+                persona.querySelector(
+                    '.rsvp-person-notes'
+                );
+
+            if (notas) {
+
+                notas.value =
+                    respuesta.Observaciones || '';
+
+            }
+
+        }
+    );
+}
+
+
+    
 })();
