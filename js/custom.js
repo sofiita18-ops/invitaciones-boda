@@ -444,13 +444,56 @@
                     </div>
 
                     <a
-                        class="wedding-button wedding-button-main"
+                        class="wedding-button"
                         href="${SPOTIFY_PLAYLIST_URL}"
                         target="_blank"
                         rel="noopener"
                     >
-                        Añadir canciones
+                        Abrir en Spotify
                     </a>
+
+                    <p class="wedding-text song-form-intro">
+                        ¿No tienes Spotify? Sin problema,
+                        escribe aquí tu propuesta y nosotros
+                        la añadimos.
+                    </p>
+
+                    <div class="song-form">
+
+                        <label for="song-name">
+                            Tu nombre (opcional)
+                        </label>
+
+                        <input
+                            type="text"
+                            id="song-name"
+                            placeholder="¿Quién la propone?"
+                        >
+
+                        <label for="song-title">
+                            Canción
+                        </label>
+
+                        <input
+                            type="text"
+                            id="song-title"
+                            placeholder="Título y artista"
+                        >
+
+                        <button
+                            type="button"
+                            id="song-submit"
+                            class="wedding-button wedding-button-main"
+                        >
+                            Proponer canción
+                        </button>
+
+                        <p
+                            id="song-message"
+                            class="rsvp-message"
+                        ></p>
+
+                    </div>
 
                 </div>
 
@@ -590,6 +633,14 @@ iniciarCuentaAtras();
 
 iniciarRevelado();
 
+/*
+ * --------------------------------------------------------
+ * FORMULARIO DE CANCIONES SIN SPOTIFY
+ * --------------------------------------------------------
+ */
+
+iniciarFormularioCancion();
+
     }
 
     /*
@@ -725,6 +776,130 @@ iniciarRevelado();
 
         elementos.forEach(
             elemento => observer.observe(elemento)
+        );
+    }
+
+
+    /*
+     * Formulario de canciones sin cuenta de Spotify
+     */
+    function iniciarFormularioCancion() {
+
+        const boton =
+            document.getElementById('song-submit');
+
+        if (!boton) {
+            return;
+        }
+
+        boton.addEventListener(
+            'click',
+            async function () {
+
+                const nombreInput =
+                    document.getElementById('song-name');
+
+                const cancionInput =
+                    document.getElementById('song-title');
+
+                const mensaje =
+                    document.getElementById('song-message');
+
+                const cancion =
+                    cancionInput?.value?.trim() || '';
+
+                if (!cancion) {
+
+                    mensaje.textContent =
+                        'Escribe el título de la canción antes de enviarla.';
+
+                    return;
+                }
+
+                const nombre =
+                    nombreInput?.value?.trim() || '';
+
+                boton.disabled = true;
+                boton.textContent = 'Enviando...';
+                mensaje.textContent = '';
+
+                try {
+
+                    const response =
+                        await fetch(
+                            API_URL,
+                            {
+                                method: 'POST',
+
+                                headers: {
+                                    'Content-Type':
+                                        'text/plain;charset=utf-8'
+                                },
+
+                                body:
+                                    JSON.stringify({
+                                        action: 'saveSong',
+                                        nombre: nombre,
+                                        cancion: cancion
+                                    })
+                            }
+                        );
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            'Error HTTP ' +
+                            response.status
+                        );
+
+                    }
+
+                    const resultado =
+                        await response.json();
+
+                    if (!resultado.ok) {
+
+                        throw new Error(
+                            resultado.error ||
+                            'No se pudo guardar la canción.'
+                        );
+
+                    }
+
+                    mensaje.textContent =
+                        '¡Canción añadida, gracias! 🎶';
+
+                    boton.textContent =
+                        'Proponer canción';
+
+                    boton.disabled = false;
+
+                    if (cancionInput) {
+                        cancionInput.value = '';
+                    }
+
+                    if (nombreInput) {
+                        nombreInput.value = '';
+                    }
+
+                } catch (error) {
+
+                    console.error(
+                        '❌ Error guardando la canción:',
+                        error
+                    );
+
+                    mensaje.textContent =
+                        'No hemos podido guardar tu propuesta. Inténtalo de nuevo.';
+
+                    boton.disabled = false;
+
+                    boton.textContent =
+                        'Proponer canción';
+
+                }
+
+            }
         );
     }
 
@@ -896,6 +1071,11 @@ function abrirFormularioRsvp() {
                 <p class="rsvp-intro">
                     Confirma la asistencia de todas
                     las personas incluidas en esta invitación.
+                </p>
+
+                <p class="rsvp-note">
+                    Podrás volver al formulario y cambiar
+                    tu respuesta más adelante.
                 </p>
 
             </div>
@@ -1086,18 +1266,8 @@ console.log(
                 >
 
                     <label>
-                        Menú especial
-                    </label>
-
-                    <input
-                        type="text"
-                        class="rsvp-menu"
-                        placeholder="Si necesitas un menú especial..."
-                    >
-
-
-                    <label>
-                        Alergias / intolerancias
+                        ¿Tienes alguna intolerancia, alergia
+                        o restricción alimentaria? Indícala aquí:
                     </label>
 
                     <input
@@ -1111,6 +1281,10 @@ console.log(
                         ¿Necesitas alojamiento?
                     </label>
 
+                    <p class="rsvp-extra-note">
+                        Os daremos varias opciones según
+                        las respuestas.
+                    </p>
 
                     <div class="rsvp-options">
 
@@ -1134,6 +1308,51 @@ console.log(
                             <input
                                 type="radio"
                                 name="alojamiento-${index}"
+                                value="NO"
+                            >
+
+                            <span>
+                                No
+                            </span>
+
+                        </label>
+
+                    </div>
+
+
+                    <label>
+                        ¿Vendrías a la preboda el día de
+                        antes por la tarde?
+                    </label>
+
+                    <p class="rsvp-extra-note">
+                        Según el número de personas
+                        avisaremos si finalmente se realiza
+                        o no.
+                    </p>
+
+                    <div class="rsvp-options">
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="preboda-${index}"
+                                value="SI"
+                            >
+
+                            <span>
+                                Sí
+                            </span>
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="preboda-${index}"
                                 value="NO"
                             >
 
@@ -1195,16 +1414,6 @@ console.log(
      * limpiamos todos los datos extra.
      */
 
-    const menu =
-        extra.querySelector(
-            '.rsvp-menu'
-        );
-
-    if (menu) {
-        menu.value = '';
-    }
-
-
     const alergias =
         extra.querySelector(
             '.rsvp-allergies'
@@ -1221,6 +1430,18 @@ console.log(
         );
 
     alojamiento.forEach(
+        function (radio) {
+            radio.checked = false;
+        }
+    );
+
+
+    const preboda =
+        extra.querySelectorAll(
+            `input[name="preboda-${index}"]`
+        );
+
+    preboda.forEach(
         function (radio) {
             radio.checked = false;
         }
@@ -1348,13 +1569,6 @@ boton.textContent =
                             )?.value || '';
 
 
-                        const menu =
-                            persona
-                                .querySelector('.rsvp-menu')
-                                ?.value
-                                ?.trim() || '';
-
-
                         const alergias =
                             persona
                                 .querySelector('.rsvp-allergies')
@@ -1365,6 +1579,12 @@ boton.textContent =
                         const alojamiento =
                             persona.querySelector(
                                 `input[name="alojamiento-${index}"]:checked`
+                            )?.value || '';
+
+
+                        const preboda =
+                            persona.querySelector(
+                                `input[name="preboda-${index}"]:checked`
                             )?.value || '';
 
 
@@ -1379,9 +1599,6 @@ boton.textContent =
                                         ? 'No'
                                         : '',
 
-                            menu:
-                                menu,
-
                             alergias:
                                 alergias,
 
@@ -1389,6 +1606,13 @@ boton.textContent =
                                 alojamiento === 'SI'
                                     ? 'Sí'
                                     : alojamiento === 'NO'
+                                        ? 'No'
+                                        : '',
+
+                            preboda:
+                                preboda === 'SI'
+                                    ? 'Sí'
+                                    : preboda === 'NO'
                                         ? 'No'
                                         : '',
 
@@ -1773,22 +1997,6 @@ function aplicarRespuestasRsvp(
 
 
             /*
-             * Menú
-             */
-            const menu =
-                persona.querySelector(
-                    '.rsvp-menu'
-                );
-
-            if (menu) {
-
-                menu.value =
-                    respuesta.Menú || '';
-
-            }
-
-
-            /*
              * Alergias
              */
             const alergias =
@@ -1820,6 +2028,28 @@ function aplicarRespuestasRsvp(
                 const radio =
                     persona.querySelector(
                         `input[name="alojamiento-${index}"][value="${alojamiento === 'sí' || alojamiento === 'si' ? 'SI' : 'NO'}"]`
+                    );
+
+                if (radio) {
+                    radio.checked = true;
+                }
+            }
+
+
+            /*
+             * Preboda
+             */
+            const preboda =
+                String(
+                    respuesta.Preboda || ''
+                ).toLowerCase();
+
+
+            if (preboda) {
+
+                const radio =
+                    persona.querySelector(
+                        `input[name="preboda-${index}"][value="${preboda === 'sí' || preboda === 'si' ? 'SI' : 'NO'}"]`
                     );
 
                 if (radio) {
