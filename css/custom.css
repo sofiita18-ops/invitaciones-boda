@@ -155,7 +155,7 @@ body.invitation-locked {
     align-items: center;
     justify-content: center;
 
-    padding: 26px 20px;
+    padding: 12px 20px;
     box-sizing: border-box;
     text-align: center;
 
@@ -191,6 +191,24 @@ body.invitation-locked {
         opacity 0.45s ease 0.3s;
 }
 
+/* Hueco reservado para futuras ilustraciones/fotos decorativas */
+.envelope-letter-decor {
+    flex-shrink: 0;
+    width: 100%;
+}
+
+.envelope-letter-decor-top {
+    height: 30px;
+}
+
+.envelope-letter-decor-bottom {
+    height: 22px;
+}
+
+.envelope-letter-inner {
+    padding: 6px 0;
+}
+
 .envelope-letter-kicker {
     margin: 0 0 8px;
 
@@ -202,7 +220,7 @@ body.invitation-locked {
 }
 
 .envelope-letter-names {
-    margin: 0 0 12px;
+    margin: 0 0 10px;
 
     font-family: Georgia, "Times New Roman", serif;
     font-size: clamp(19px, 6vw, 27px);
@@ -216,11 +234,21 @@ body.invitation-locked {
     font-style: italic;
 }
 
+.envelope-letter-subtitle {
+    margin: 0 0 16px;
+
+    font-size: 12px;
+    line-height: 1.5;
+
+    opacity: 0.75;
+}
+
 .envelope-letter-date {
     margin: 0 0 10px;
 
     font-size: 12px;
     letter-spacing: 0.1em;
+    line-height: 1.6;
 
     color: var(--ink);
 }
@@ -284,6 +312,7 @@ body.invitation-locked {
     justify-content: center;
 
     border-radius: 50%;
+    overflow: hidden;
 
     background: var(--accent);
     color: #fffaf3;
@@ -299,6 +328,14 @@ body.invitation-locked {
     transition:
         transform 0.5s ease,
         opacity 0.4s ease;
+}
+
+.envelope-seal img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .envelope.is-opening .envelope-seal {
@@ -436,7 +473,7 @@ body.our-site-mode {
             rgba(40,35,30,0.20),
             rgba(40,35,30,0.20)
         ),
-        url('../img/hero-min.jpg');
+        url('../img/FOTO_PORTADA.jpg');
 
     background-size: cover;
     background-position: center;
@@ -601,11 +638,11 @@ body.our-site-mode {
     display: grid;
 
     grid-template-columns:
-        repeat(3, 1fr);
+        repeat(2, 1fr);
 
     gap: 45px;
 
-    max-width: 800px;
+    max-width: 560px;
 
     margin:
         0 auto 50px;
@@ -886,7 +923,7 @@ body.our-site-mode {
 
     .event-details {
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 26px;
     }
 
     .wedding-countdown {
@@ -895,6 +932,54 @@ body.our-site-mode {
 
     .wedding-countdown strong {
         font-size: 24px;
+    }
+
+    .wedding-section {
+        min-height: auto;
+
+        padding: 56px 20px;
+    }
+
+    .wedding-content h2 {
+        margin: 8px 0 26px;
+
+        font-size: clamp(32px, 9vw, 44px);
+    }
+
+    .wedding-text {
+        margin: 0 auto 22px;
+
+        line-height: 1.6;
+    }
+
+    .wedding-kicker {
+        font-size: 10px;
+    }
+
+    .info-card {
+        padding: 18px 20px;
+
+        margin: 0 auto 14px;
+    }
+
+    .info-card h3 {
+        font-size: 20px;
+    }
+
+    .wedding-button {
+        padding: 13px 22px;
+    }
+
+    .spotify-embed-wrapper iframe {
+        height: 280px;
+    }
+
+    .wedding-footer {
+        padding: 34px 20px;
+    }
+
+    .wedding-footer p {
+        font-size: 21px;
     }
 
 }
