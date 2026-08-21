@@ -126,7 +126,6 @@
                             alt="P&amp;S"
                         >
                     </div>
-                    </div>
 
                 </div>
 
