@@ -899,77 +899,292 @@ body.our-site-mode {
 
 @media (max-width: 700px) {
 
+    /*
+     * PORTADA
+     * -----------------------------------------------------
+     * En móvil utilizamos la altura real disponible.
+     * 100dvh se adapta mejor a las barras del navegador
+     * de iPhone y Android.
+     */
+
     .wedding-cover {
-        min-height: 100svh;
-        background-position: 30% center;
+        min-height: 100dvh;
+        height: 100dvh;
+
+        padding:
+            30px 20px;
+
+        box-sizing: border-box;
+
+        /*
+         * La foto sigue llenando toda la pantalla.
+         */
+        background-size: cover;
+
+        /*
+         * Punto de referencia de la fotografía.
+         *
+         * 50% centra la imagen horizontalmente.
+         * Si las caras quedan todavía demasiado cerca
+         * del texto, podemos ajustar este valor.
+         */
+        background-position: 50% center;
     }
+
+
+    /*
+     * CONTENIDO DE LA PORTADA
+     */
 
     .wedding-cover-content {
+
         width: 100%;
-        max-width: 88vw;
-        padding: 0 10px;
+
+        max-width: 90vw;
+
+        padding:
+            0 10px;
+
         box-sizing: border-box;
+
+        /*
+         * Evita que el contenido quede pegado
+         * a los extremos de la pantalla.
+         */
+        margin:
+            0 auto;
     }
 
-    .event-details {
-        grid-template-columns: 1fr;
-        gap: 26px;
+
+    /*
+     * TÍTULO "NOS CASAMOS"
+     */
+
+    .wedding-small-title {
+
+        font-size: 11px;
+
+        letter-spacing:
+            0.20em;
+
+        margin-bottom:
+            18px;
     }
+
+
+    /*
+     * NOMBRES
+     */
+
+    .wedding-cover h1 {
+
+        font-size:
+            clamp(42px, 12vw, 64px);
+
+        line-height:
+            1.05;
+    }
+
+
+    /*
+     * FECHA
+     */
+
+    .wedding-date {
+
+        margin-top:
+            18px;
+
+        font-size:
+            12px;
+
+        line-height:
+            1.5;
+
+        letter-spacing:
+            0.16em;
+    }
+
+
+    /*
+     * CUENTA ATRÁS
+     */
 
     .wedding-countdown {
-        gap: 15px;
+
+        gap:
+            12px;
+
+        margin-top:
+            30px;
+
+        width:
+            100%;
     }
+
+
+    .wedding-countdown > div {
+
+        min-width:
+            52px;
+    }
+
 
     .wedding-countdown strong {
-        font-size: 24px;
+
+        font-size:
+            23px;
     }
+
+
+    .wedding-countdown span {
+
+        font-size:
+            8px;
+
+        letter-spacing:
+            0.08em;
+    }
+
+
+    /*
+     * INDICADOR DE SCROLL
+     */
+
+    .wedding-scroll-hint {
+
+        margin-top:
+            32px;
+
+        font-size:
+            23px;
+    }
+
+
+    /*
+     * RESTO DE SECCIONES
+     */
 
     .wedding-section {
-        min-height: auto;
 
-        padding: 56px 20px;
+        min-height:
+            auto;
+
+        padding:
+            56px 20px;
     }
+
+
+    /*
+     * EVENTO
+     */
+
+    .event-details {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            26px;
+    }
+
+
+    /*
+     * TÍTULOS
+     */
 
     .wedding-content h2 {
-        margin: 8px 0 26px;
 
-        font-size: clamp(32px, 9vw, 44px);
+        margin:
+            8px 0 26px;
+
+        font-size:
+            clamp(32px, 9vw, 44px);
+
+        line-height:
+            1.1;
     }
+
+
+    /*
+     * TEXTOS
+     */
 
     .wedding-text {
-        margin: 0 auto 22px;
 
-        line-height: 1.6;
+        margin:
+            0 auto 22px;
+
+        line-height:
+            1.6;
     }
+
 
     .wedding-kicker {
-        font-size: 10px;
+
+        font-size:
+            10px;
     }
+
+
+    /*
+     * TARJETAS DE INFORMACIÓN
+     */
 
     .info-card {
-        padding: 18px 20px;
 
-        margin: 0 auto 14px;
+        padding:
+            18px 20px;
+
+        margin:
+            0 auto 14px;
     }
+
 
     .info-card h3 {
-        font-size: 20px;
+
+        font-size:
+            20px;
     }
+
+
+    /*
+     * BOTONES
+     */
 
     .wedding-button {
-        padding: 13px 22px;
+
+        padding:
+            13px 22px;
     }
+
+
+    /*
+     * SPOTIFY
+     */
 
     .spotify-embed-wrapper iframe {
-        height: 280px;
+
+        height:
+            280px;
     }
+
+
+    /*
+     * PIE
+     */
 
     .wedding-footer {
-        padding: 34px 20px;
+
+        padding:
+            34px 20px;
     }
 
+
     .wedding-footer p {
-        font-size: 21px;
+
+        font-size:
+            21px;
     }
 
 }
