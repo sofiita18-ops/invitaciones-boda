@@ -264,6 +264,77 @@
         );
     }
 
+/* *COSAS DEL IBAN */
+
+  function copiarTexto(texto) {
+        if (navigator.clipboard && window.isSecureContext) {
+            return navigator.clipboard.writeText(texto);
+        }
+
+        return new Promise(function (resolve, reject) {
+            var textarea = document.createElement("textarea");
+
+            textarea.value = texto;
+            textarea.style.position = "fixed";
+            textarea.style.left = "-9999px";
+            textarea.style.top = "0";
+            textarea.setAttribute("readonly", "");
+
+            document.body.appendChild(textarea);
+
+            textarea.focus();
+            textarea.select();
+
+            try {
+                var correcto = document.execCommand("copy");
+                document.body.removeChild(textarea);
+
+                if (correcto) {
+                    resolve();
+                } else {
+                    reject();
+                }
+            } catch (error) {
+                document.body.removeChild(textarea);
+                reject(error);
+            }
+        });
+    }
+
+
+    function copiarIBAN() {
+        var ibanElement = document.getElementById("iban");
+
+        if (!ibanElement) {
+            console.error("No se ha encontrado el elemento con id 'iban'");
+            return;
+        }
+
+        var iban = ibanElement.textContent.trim();
+
+        copiarTexto(iban)
+            .then(function () {
+                var mensaje = document.getElementById("mensaje-copiado");
+
+                if (mensaje) {
+                    mensaje.classList.add("visible");
+
+                    setTimeout(function () {
+                        mensaje.classList.remove("visible");
+                    }, 2500);
+                }
+            })
+            .catch(function (error) {
+                console.error("No se ha podido copiar el IBAN:", error);
+            });
+    }
+
+    var botonCopiarIBAN = document.getElementById("boton-copiar-iban");
+
+    if (botonCopiarIBAN) {
+        botonCopiarIBAN.addEventListener("click", copiarIBAN);
+    }
+
 
     /*
      * Crear web de la boda
@@ -488,7 +559,7 @@
 
                     <p class="wedding-text song-form-intro">
                         ¿No tienes Spotify? Sin problema,
-                        escribe aquí tu propuesta y nosotros
+                        escribe aquí tu propuesta y nosotras
                         la añadimos.
                     </p>
 
@@ -587,7 +658,7 @@
                             Aportaciones
                         </h3>
 
-                        <p> Lo más importante para nosotros es compartir este día con vosotros. Pero si además queréis colaborar con nosotros en esta nueva aventura, podéis hacerlo aquí: </p> <div class="iban-container"> <span id="iban"> ES00 0000 0000 0000 0000 0000 </span> <button type="button" onclick="copiarIBAN()" class="copy-iban-btn"> Copiar </button>
+                        <p> Lo más importante para nosotras es compartir este día con vosotros. Pero si además queréis colaborar con nosotras en esta nueva aventura, podéis hacerlo aquí: </p> <div class="iban-container"> <span id="iban"> ES00 0000 0000 0000 0000 0000 </span> <button type="button"  id="boton-copiar-iban" class="copy-iban-btn"> Copiar </button>
 
                     </div>
 
