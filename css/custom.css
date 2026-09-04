@@ -73,25 +73,12 @@ body.invitation-locked {
 }
 
 .invitation-guest-names {
-    margin-bottom: 12px;
+    margin-bottom: 42px;
 
     font-family: Georgia, "Times New Roman", serif;
     font-size: clamp(27px, 8vw, 42px);
     line-height: 1.15;
     font-weight: 400;
-
-    color: var(--ink);
-}
-
-.invitation-guest-names-kids {
-    margin-bottom: 42px;
-
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(15px, 4vw, 19px);
-    line-height: 1.3;
-    font-style: italic;
-
-    opacity: 0.7;
 
     color: var(--ink);
 }
@@ -118,172 +105,35 @@ body.invitation-locked {
 .envelope-body {
     position: absolute;
     inset: 0;
-    z-index: 1;
 
-    background:
-        linear-gradient(115deg, rgba(0,0,0,0.1), transparent 38%),
-        linear-gradient(245deg, rgba(0,0,0,0.1), transparent 38%),
-        var(--paper-light);
+    background: var(--paper-light);
 
     border: 1px solid rgba(61,58,53,0.15);
     border-radius: 3px;
 
-    box-shadow:
-        inset 0 -12px 25px -10px rgba(40,30,20,0.25);
-
     overflow: hidden;
 }
 
-/* Bolsillo frontal del sobre: el pico coincide
-   exactamente con la punta de la solapa y el sello */
+/* Triángulo inferior */
 .envelope-body::before {
     content: "";
 
     position: absolute;
-    inset: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 
-    background: #ece3d6;
+    height: 65%;
+
+    background: #eee7db;
 
     clip-path: polygon(
-        0 100%,
+        0 0,
+        50% 62%,
+        100% 0,
         100% 100%,
-        50% 58%
+        0 100%
     );
-}
-
-.envelope-body::after {
-    content: "";
-    position: absolute;
-    left: 10%;
-    right: 10%;
-    top: 58%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(60,45,30,0.25), transparent);
-}
-
-/* ---------------------------------------------------------
-   CARTA (sale de dentro del sobre al abrirlo)
-   --------------------------------------------------------- */
-
-.envelope-letter {
-    position: absolute;
-
-    left: 6%;
-    right: 6%;
-    bottom: 10%;
-
-    z-index: 4;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    padding: 12px 20px;
-    box-sizing: border-box;
-    text-align: center;
-
-    background: var(--paper-light);
-
-    border-radius: 6px;
-
-    box-shadow:
-        0 18px 40px rgba(40,30,20,0.22);
-
-    transform-origin: center bottom;
-    transform: translateY(8%) scale(0.82);
-    opacity: 0;
-
-    pointer-events: none;
-
-    transition:
-        transform 1.05s cubic-bezier(.22,.61,.36,1),
-        opacity 0.7s ease;
-}
-
-.envelope-letter.is-out {
-    transform: translateY(-58%) scale(1);
-    opacity: 1;
-}
-
-.envelope-letter.is-leaving {
-    transform: translateY(-78%) scale(1.04);
-    opacity: 0;
-
-    transition:
-        transform 0.8s ease,
-        opacity 0.45s ease 0.3s;
-}
-
-/* Hueco reservado para futuras ilustraciones/fotos decorativas */
-.envelope-letter-decor {
-    flex-shrink: 0;
-    width: 100%;
-}
-
-.envelope-letter-decor-top {
-    height: 30px;
-}
-
-.envelope-letter-decor-bottom {
-    height: 22px;
-}
-
-.envelope-letter-inner {
-    padding: 6px 0;
-}
-
-.envelope-letter-kicker {
-    margin: 0 0 8px;
-
-    font-size: 10px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-
-    opacity: 0.6;
-}
-
-.envelope-letter-names {
-    margin: 0 0 10px;
-
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(19px, 6vw, 27px);
-    font-weight: 400;
-    line-height: 1.2;
-
-    color: var(--ink);
-}
-
-.envelope-letter-names span {
-    font-style: italic;
-}
-
-.envelope-letter-subtitle {
-    margin: 0 0 16px;
-
-    font-size: 12px;
-    line-height: 1.5;
-
-    opacity: 0.75;
-}
-
-.envelope-letter-date {
-    margin: 0 0 10px;
-
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    line-height: 1.6;
-
-    color: var(--ink);
-}
-
-.envelope-letter-place {
-    margin: 0;
-
-    font-size: 11px;
-    line-height: 1.55;
-
-    opacity: 0.7;
 }
 
 /* Solapa superior */
@@ -293,12 +143,9 @@ body.invitation-locked {
     left: 0;
 
     width: 100%;
-    height: 58%;
+    height: 70%;
 
-    z-index: 3;
-
-    background: linear-gradient(160deg, #fbf7f0, #f0eae0);
-    box-shadow: 0 6px 10px -6px rgba(40,30,20,0.35);
+    background: #f8f4ec;
 
     clip-path: polygon(
         0 0,
@@ -309,7 +156,7 @@ body.invitation-locked {
     transform-origin: top center;
 
     transition:
-        transform 0.65s cubic-bezier(.22,.61,.36,1);
+        transform 1s cubic-bezier(.22,.61,.36,1);
 }
 
 /* Animación de apertura */
@@ -325,7 +172,7 @@ body.invitation-locked {
     position: absolute;
 
     left: 50%;
-    top: 58%;
+    top: 50%;
 
     transform: translate(-50%, -50%);
 
@@ -337,7 +184,6 @@ body.invitation-locked {
     justify-content: center;
 
     border-radius: 50%;
-    overflow: hidden;
 
     background: var(--accent);
     color: #fffaf3;
@@ -346,23 +192,13 @@ body.invitation-locked {
     font-size: 18px;
 
     box-shadow:
-    inset 0 2px 3px rgba(255,255,255,0.35),
-    inset 0 -3px 6px rgba(0,0,0,0.25),
-    0 4px 10px rgba(0,0,0,0.15);
+        0 4px 10px rgba(0,0,0,0.15);
 
     z-index: 5;
 
     transition:
-        transform 0.5s ease,
-        opacity 0.4s ease;
-}
-
-.envelope-seal img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-    border-radius: 50%;
+        transform 0.7s ease,
+        opacity 0.5s ease;
 }
 
 .envelope.is-opening .envelope-seal {
@@ -500,7 +336,7 @@ body.our-site-mode {
             rgba(40,35,30,0.20),
             rgba(40,35,30,0.20)
         ),
-        url('../img/FOTO_PORTADA.jpg');
+        url('../img/hero-min.jpg');
 
     background-size: cover;
     background-position: center;
@@ -665,11 +501,11 @@ body.our-site-mode {
     display: grid;
 
     grid-template-columns:
-        repeat(2, 1fr);
+        repeat(3, 1fr);
 
     gap: 45px;
 
-    max-width: 560px;
+    max-width: 800px;
 
     margin:
         0 auto 50px;
@@ -769,63 +605,6 @@ body.our-site-mode {
 
 .spotify-embed-wrapper iframe {
     display: block;
-}
-
-.song-form-intro {
-    margin-top: 30px !important;
-}
-
-.song-form {
-    max-width: 420px;
-
-    margin: 0 auto;
-
-    text-align: left;
-}
-
-.song-form label {
-    display: block;
-
-    margin: 16px 0 8px;
-
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
-.song-form input[type="text"] {
-    width: 100%;
-
-    box-sizing: border-box;
-
-    padding: 13px 14px;
-
-    border: 1px solid rgba(63,58,52,0.20);
-
-    background: #fffdf9;
-
-    color: #3f3a34;
-
-    font-family: inherit;
-    font-size: 15px;
-
-    outline: none;
-}
-
-.song-form input[type="text"]:focus {
-    border-color: #65594d;
-}
-
-.song-form button {
-    display: block;
-
-    width: 100%;
-
-    margin-top: 22px;
-}
-
-.song-form .rsvp-message {
-    text-align: center;
 }
 
 
@@ -933,12 +712,6 @@ body.our-site-mode {
         transform: none;
         transition: none;
     }
-
-    .envelope-letter,
-    .envelope-flap,
-    .envelope-seal {
-        transition-duration: 0.2s;
-    }
 }
 
 
@@ -950,7 +723,7 @@ body.our-site-mode {
 
     .event-details {
         grid-template-columns: 1fr;
-        gap: 26px;
+        gap: 30px;
     }
 
     .wedding-countdown {
@@ -959,54 +732,6 @@ body.our-site-mode {
 
     .wedding-countdown strong {
         font-size: 24px;
-    }
-
-    .wedding-section {
-        min-height: auto;
-
-        padding: 56px 20px;
-    }
-
-    .wedding-content h2 {
-        margin: 8px 0 26px;
-
-        font-size: clamp(32px, 9vw, 44px);
-    }
-
-    .wedding-text {
-        margin: 0 auto 22px;
-
-        line-height: 1.6;
-    }
-
-    .wedding-kicker {
-        font-size: 10px;
-    }
-
-    .info-card {
-        padding: 18px 20px;
-
-        margin: 0 auto 14px;
-    }
-
-    .info-card h3 {
-        font-size: 20px;
-    }
-
-    .wedding-button {
-        padding: 13px 22px;
-    }
-
-    .spotify-embed-wrapper iframe {
-        height: 280px;
-    }
-
-    .wedding-footer {
-        padding: 34px 20px;
-    }
-
-    .wedding-footer p {
-        font-size: 21px;
     }
 
 }
@@ -1452,26 +1177,6 @@ body.rsvp-open {
         0 0 20px;
 }
 
-.rsvp-person-tag {
-    margin:
-        -14px 0 20px;
-
-    font-size:
-        12px;
-
-    letter-spacing:
-        .06em;
-
-    text-transform:
-        uppercase;
-
-    color:
-        var(--accent, #8b6f5a);
-
-    opacity:
-        .85;
-}
-
 .rsvp-question {
     font-size:
         12px;
@@ -1538,36 +1243,6 @@ body.rsvp-open {
 .rsvp-extra[hidden] {
     display:
         none;
-}
-
-.rsvp-extra-note {
-    margin:
-        -2px 0 12px;
-
-    font-size:
-        13px;
-
-    line-height:
-        1.5;
-
-    opacity:
-        .65;
-}
-
-.rsvp-note {
-    max-width: 560px;
-
-    margin:
-        14px auto 0;
-
-    font-size:
-        13px;
-
-    line-height:
-        1.6;
-
-    opacity:
-        .65;
 }
 
 .rsvp-extra label,
