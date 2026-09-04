@@ -907,29 +907,15 @@ body.our-site-mode {
      * de iPhone y Android.
      */
 
-    .wedding-cover {
-        min-height: 100dvh;
-        height: 100dvh;
-
-        padding:
-            30px 20px;
-
-        box-sizing: border-box;
-
-        /*
-         * La foto sigue llenando toda la pantalla.
-         */
-        background-size: cover;
-
-        /*
-         * Punto de referencia de la fotografía.
-         *
-         * 50% centra la imagen horizontalmente.
-         * Si las caras quedan todavía demasiado cerca
-         * del texto, podemos ajustar este valor.
-         */
-        background-position: 50% center;
-    }
+   .wedding-cover {
+    min-height: 100dvh;
+    height: 100dvh;
+    padding: 30px 20px;
+    box-sizing: border-box;
+    background-size: 115% auto;
+    background-position: 30% center;
+    background-repeat: no-repeat;
+}
 
 
     /*
