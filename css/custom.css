@@ -912,7 +912,7 @@ body.our-site-mode {
     height: 100dvh;
     padding: 30px 20px;
     box-sizing: border-box;
-    background-size: 115% auto;
+    background-size: cover;  /* 110% auto deja espacios arriba y abajo */
     background-position: 30% center;
     background-repeat: no-repeat;
 }
@@ -930,9 +930,9 @@ body.our-site-mode {
 
         padding:
             0 10px;
-
+       
         box-sizing: border-box;
-
+        transform: translateY(-100px);
         /*
          * Evita que el contenido quede pegado
          * a los extremos de la pantalla.
