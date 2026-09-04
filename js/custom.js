@@ -556,9 +556,13 @@
                         </h3>
 
                         <p>
-                            Aquí añadiremos los hoteles,
-                            apartamentos y opciones de
-                            alojamiento recomendadas.
+           Podéis elegir libremente el hotel o apartamento que prefiráis.
+            <br><br>
+            Si en la encuesta habéis indicado que necesitáis alojamiento y finalmente organizamos una opción conjunta, os informaremos de todos los detalles.
+
+
+
+
                         </p>
 
                     </div>
@@ -566,15 +570,12 @@
                     <div class="info-card reveal-on-scroll">
 
                         <h3>
-                            Cómo llegar
+                            Ubicación
                         </h3>
 
                         <p>
                             ${escapeHtml(LUGAR.nombre)},
                             ${escapeHtml(LUGAR.direccion)}.
-                            Aquí añadiremos información
-                            sobre coche, autobús, taxi,
-                            parking, etc.
                         </p>
 
                     </div>
@@ -586,9 +587,10 @@
                         </h3>
 
                         <p>
-                            Aquí pondremos los horarios
-                            específicos de la boda,
-                            autobuses, recepción, etc.
+                           Ceremonia 19:45 </br>
+                           Coctel 21:00 a 23:30 </br>
+                           Discoteca 23:30 a 03:00 </br>
+
                         </p>
 
                     </div>
