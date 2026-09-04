@@ -116,40 +116,6 @@
 
                     <div class="envelope-body"></div>
 
-                    <div class="envelope-letter" id="envelope-letter">
-
-                        <div class="envelope-letter-decor envelope-letter-decor-top"></div>
-
-                        <div class="envelope-letter-inner">
-
-                            <p class="envelope-letter-kicker">
-                                Nos casamos
-                            </p>
-
-                            <h2 class="envelope-letter-names">
-                                Pilar <span>&</span> Sofía
-                            </h2>
-
-                            <p class="envelope-letter-subtitle">
-                                Nos gustaría compartir este día contigo
-                            </p>
-
-                            <p class="envelope-letter-date">
-                                ${escapeHtml(formatearFecha(FECHA_BODA))}
-                                <br>
-                                ${escapeHtml(formatearHora(FECHA_BODA))}
-                            </p>
-
-                            <p class="envelope-letter-place">
-                                ${escapeHtml(LUGAR.resumen)}
-                            </p>
-
-                        </div>
-
-                        <div class="envelope-letter-decor envelope-letter-decor-bottom"></div>
-
-                    </div>
-
                     <div class="envelope-flap"></div>
 
                     <div class="envelope-seal">
@@ -183,53 +149,42 @@
     /*
      * Abrir sobre
      *
-     * Dos pasos:
-     * 1) Se abre la solapa y la carta sale del sobre
-     *    con los nombres, la fecha y el lugar.
-     * 2) Un segundo gesto (pulsar/deslizar otra vez)
-     *    da paso a la web completa.
+     * Un único gesto:
+     * la solapa se abre, el sobre se desliza hacia
+     * abajo y desaparece, mientras la web (con la
+     * imagen de portada) va apareciendo de fondo.
      */
     function prepararApertura(overlay) {
 
         const envelope =
             overlay.querySelector('#envelope');
 
-        const letter =
-            overlay.querySelector('#envelope-letter');
-
-        const hint =
-            overlay.querySelector('#invitation-hint');
-
         let startY = null;
-        let estado = 'cerrado';
+        let abierta = false;
 
         function abrirSobre() {
 
-            estado = 'abriendo';
+            if (abierta) {
+                return;
+            }
 
+            abierta = true;
+
+            // Preparamos la web detrás del sobre para
+            // que la portada ya esté lista al descubrirse
+            crearWebInvitacion();
+
+            // La solapa se abre
             envelope.classList.add('is-opening');
 
+            // El sobre se desliza hacia abajo y el
+            // overlay se desvanece, dejando ver la portada
             setTimeout(() => {
 
-                letter.classList.add('is-out');
+                envelope.classList.add('is-sliding');
+                overlay.classList.add('is-open');
 
-                estado = 'carta';
-
-                if (hint) {
-                    hint.textContent =
-                        'Desliza de nuevo para continuar';
-                }
-
-            }, 380);
-        }
-
-        function continuarHaciaLaWeb() {
-
-            estado = 'saliendo';
-
-            letter.classList.add('is-leaving');
-
-            overlay.classList.add('is-open');
+            }, 250);
 
             setTimeout(() => {
 
@@ -237,28 +192,18 @@
                     'invitation-locked'
                 );
 
-                crearWebInvitacion();
+                overlay.remove();
 
-            }, 820);
+            }, 1250);
         }
 
-        function accionar() {
-
-            if (estado === 'cerrado') {
-                abrirSobre();
-            } else if (estado === 'carta') {
-                continuarHaciaLaWeb();
-            }
-
-        }
-
-        envelope.addEventListener('click', accionar);
+        envelope.addEventListener('click', abrirSobre);
 
         envelope.addEventListener('keydown', event => {
 
             if (event.key === 'Enter' || event.key === ' ') {
                 event.preventDefault();
-                accionar();
+                abrirSobre();
             }
 
         });
@@ -283,7 +228,7 @@
                 const desplazamiento = startY - endY;
 
                 if (desplazamiento > 50) {
-                    accionar();
+                    abrirSobre();
                 }
 
                 startY = null;
