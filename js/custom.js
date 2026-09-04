@@ -264,76 +264,181 @@
         );
     }
 
-/* *COSAS DEL IBAN */
 
-  function copiarTexto(texto) {
-        if (navigator.clipboard && window.isSecureContext) {
-            return navigator.clipboard.writeText(texto);
-        }
+/*
+ * ========================================================
+ * COPIAR IBAN
+ * ========================================================
+ */
 
-        return new Promise(function (resolve, reject) {
-            var textarea = document.createElement("textarea");
+function copiarIBAN() {
 
-            textarea.value = texto;
-            textarea.style.position = "fixed";
-            textarea.style.left = "-9999px";
-            textarea.style.top = "0";
-            textarea.setAttribute("readonly", "");
+    const ibanElement =
+        document.getElementById('iban');
 
-            document.body.appendChild(textarea);
+    const boton =
+        document.getElementById('boton-copiar-iban');
 
-            textarea.focus();
-            textarea.select();
-
-            try {
-                var correcto = document.execCommand("copy");
-                document.body.removeChild(textarea);
-
-                if (correcto) {
-                    resolve();
-                } else {
-                    reject();
-                }
-            } catch (error) {
-                document.body.removeChild(textarea);
-                reject(error);
-            }
-        });
+    if (!ibanElement || !boton) {
+        console.error(
+            '❌ No se ha encontrado el IBAN o el botón de copiar'
+        );
+        return;
     }
 
+    const iban =
+        ibanElement.textContent
+            .replace(/\s+/g, '')
+            .trim();
 
-    function copiarIBAN() {
-        var ibanElement = document.getElementById("iban");
+    /*
+     * Método moderno
+     */
+    if (
+        navigator.clipboard &&
+        window.isSecureContext
+    ) {
 
-        if (!ibanElement) {
-            console.error("No se ha encontrado el elemento con id 'iban'");
-            return;
-        }
-
-        var iban = ibanElement.textContent.trim();
-
-        copiarTexto(iban)
+        navigator.clipboard
+            .writeText(iban)
             .then(function () {
-                var mensaje = document.getElementById("mensaje-copiado");
 
-                if (mensaje) {
-                    mensaje.classList.add("visible");
+                mostrarIBANCopiado(boton);
 
-                    setTimeout(function () {
-                        mensaje.classList.remove("visible");
-                    }, 2500);
-                }
             })
             .catch(function (error) {
-                console.error("No se ha podido copiar el IBAN:", error);
+
+                console.warn(
+                    '⚠️ Clipboard API no disponible. Probando método alternativo.',
+                    error
+                );
+
+                copiarIBANAlternativo(
+                    iban,
+                    boton
+                );
+
             });
+
+        return;
     }
 
-    var botonCopiarIBAN = document.getElementById("boton-copiar-iban");
+    /*
+     * Método alternativo para móviles/navegadores
+     */
+    copiarIBANAlternativo(
+        iban,
+        boton
+    );
+}
 
-    if (botonCopiarIBAN) {
-        botonCopiarIBAN.addEventListener("click", copiarIBAN);
+
+/*
+ * Método alternativo de copiado
+ */
+function copiarIBANAlternativo(
+    iban,
+    boton
+) {
+
+    const textarea =
+        document.createElement('textarea');
+
+    textarea.value = iban;
+
+    textarea.setAttribute(
+        'readonly',
+        ''
+    );
+
+    textarea.style.position =
+        'fixed';
+
+    textarea.style.left =
+        '-9999px';
+
+    textarea.style.top =
+        '0';
+
+    textarea.style.opacity =
+        '0';
+
+    document.body.appendChild(
+        textarea
+    );
+
+    textarea.focus();
+    textarea.select();
+
+    try {
+
+        const correcto =
+            document.execCommand('copy');
+
+        document.body.removeChild(
+            textarea
+        );
+
+        if (correcto) {
+
+            mostrarIBANCopiado(
+                boton
+            );
+
+        } else {
+
+            console.error(
+                '❌ No se ha podido copiar el IBAN'
+            );
+
+        }
+
+    } catch (error) {
+
+        document.body.removeChild(
+            textarea
+        );
+
+        console.error(
+            '❌ Error copiando el IBAN:',
+            error
+        );
+
     }
+}
+
+
+/*
+ * Mostrar confirmación visual
+ */
+function mostrarIBANCopiado(
+    boton
+) {
+
+    const textoOriginal =
+        boton.textContent;
+
+    boton.textContent =
+        '¡Copiado!';
+
+    boton.classList.add(
+        'copied'
+    );
+
+    setTimeout(
+        function () {
+
+            boton.textContent =
+                textoOriginal;
+
+            boton.classList.remove(
+                'copied'
+            );
+
+        },
+        2000
+    );
+}
 
 
     /*
@@ -683,6 +788,30 @@
 
        document.body.appendChild(web);
 
+       /*
+        * --------------------------------------------------------
+        * BOTÓN COPIAR IBAN
+        * --------------------------------------------------------
+        */
+
+       const botonCopiarIBAN =
+           document.getElementById('boton-copiar-iban');
+
+       if (botonCopiarIBAN) {
+
+           botonCopiarIBAN.addEventListener(
+               'click',
+               copiarIBAN
+           );
+
+       } else {
+
+           console.error(
+               '❌ No se ha encontrado el botón #boton-copiar-iban'
+           );
+
+       }
+
        document.documentElement.style.scrollBehavior = 'smooth';
 
 
@@ -835,17 +964,6 @@ iniciarFormularioCancion();
             1000
         );
     }
-
-
-    /*
-     * Botón de copiar IBAN
-     */
-function copiarIBAN() {
- const iban = document.getElementById("iban").textContent.trim();
- const boton = document.querySelector(".copy-iban-btn"); navigator.clipboard.writeText(iban).then(() => { const textoOriginal = boton.textContent; boton.textContent = "¡Copiado!"; setTimeout(() => { boton.textContent = textoOriginal; }, 2000); 
-}); 
-}
-
 
 
 
