@@ -552,37 +552,6 @@
                     <div class="info-card reveal-on-scroll">
 
                         <h3>
-                            Alojamiento
-                        </h3>
-
-                        <p>
-           Podéis elegir libremente el hotel o apartamento que prefiráis.
-            <br><br>
-            Si en la encuesta habéis indicado que necesitáis alojamiento y finalmente organizamos una opción conjunta, os informaremos de todos los detalles.
-
-
-
-
-                        </p>
-
-                    </div>
-
-                    <div class="info-card reveal-on-scroll">
-
-                        <h3>
-                            Ubicación
-                        </h3>
-
-                        <p>
-                            ${escapeHtml(LUGAR.nombre)},
-                            ${escapeHtml(LUGAR.direccion)}.
-                        </p>
-
-                    </div>
-
-                    <div class="info-card reveal-on-scroll">
-
-                        <h3>
                             Horarios
                         </h3>
 
@@ -592,6 +561,33 @@
                            Discoteca 23:30 a 03:00 </br>
 
                         </p>
+
+                    </div>
+
+                    <div class="info-card reveal-on-scroll">
+
+                        <h3>
+                            Alojamiento
+                        </h3>
+
+                        <p>
+           Podéis elegir libremente el hotel o apartamento que prefiráis.
+            <br>
+            Si en la encuesta habéis indicado que necesitáis alojamiento y finalmente organizamos una opción conjunta, os informaremos de todos los detalles.
+
+                        </p>
+
+                    </div>
+
+                    
+
+            <div class="info-card reveal-on-scroll">
+
+                        <h3>
+                            Aportaciones
+                        </h3>
+
+                        <p> Lo más importante para nosotros es compartir este día con vosotros. Pero si además queréis colaborar con nosotros en esta nueva aventura, podéis hacerlo aquí: </p> <div class="iban-container"> <span id="iban"> ES00 0000 0000 0000 0000 0000 </span> <button type="button" onclick="copiarIBAN()" class="copy-iban-btn"> Copiar </button>
 
                     </div>
 
@@ -768,6 +764,18 @@ iniciarFormularioCancion();
             1000
         );
     }
+
+
+    /*
+     * Botón de copiar IBAN
+     */
+function copiarIBAN() {
+ const iban = document.getElementById("iban").textContent.trim();
+ const boton = document.querySelector(".copy-iban-btn"); navigator.clipboard.writeText(iban).then(() => { const textoOriginal = boton.textContent; boton.textContent = "¡Copiado!"; setTimeout(() => { boton.textContent = textoOriginal; }, 2000); 
+}); 
+}
+
+
 
 
     /*
