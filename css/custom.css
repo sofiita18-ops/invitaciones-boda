@@ -384,8 +384,8 @@ body.our-site-mode {
 
     background:
         linear-gradient(
-            rgba(40,35,30,0.40),
-            rgba(40,35,30,0.40)
+            rgba(40,35,30,0.25),
+            rgba(40,35,30,0.25)
         ),
         url('../img/FOTO_PORTADA.jpg');
 
