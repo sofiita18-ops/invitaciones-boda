@@ -146,32 +146,9 @@ body.invitation-locked {
     overflow: hidden;
 }
 
-/* Bolsillo frontal del sobre: el pico coincide
-   exactamente con la punta de la solapa y el sello */
-.envelope-body::before {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    background: #ece3d6;
-
-    clip-path: polygon(
-        0 100%,
-        100% 100%,
-        50% 58%
-    );
-}
-
-.envelope-body::after {
-    content: "";
-    position: absolute;
-    left: 10%;
-    right: 10%;
-    top: 58%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(60,45,30,0.25), transparent);
-}
+/* El bolsillo inferior ya no se dibuja como un triángulo
+   de color distinto: el volumen del papel lo da solo
+   la sombra de la solapa (más abajo), no un cambio de tono */
 
 /* Solapa superior */
 .envelope-flap {
@@ -184,8 +161,15 @@ body.invitation-locked {
 
     z-index: 3;
 
-    background: linear-gradient(160deg, #fbf7f0, #f0eae0);
-    box-shadow: 0 6px 10px -6px rgba(40,30,20,0.35);
+    /* Mismo tono que el cuerpo: nada de degradado de dos
+       colores, el volumen lo da la sombra proyectada */
+    background: var(--paper-light);
+
+    /* filter en vez de box-shadow: box-shadow se recorta
+       junto con el clip-path y no se proyectaría sobre el
+       cuerpo; drop-shadow sí cae por encima, dando la
+       sensación de solapa de papel real doblada hacia dentro */
+    filter: drop-shadow(0 7px 9px rgba(40,30,20,0.38));
 
     clip-path: polygon(
         0 0,
@@ -259,6 +243,26 @@ body.invitation-locked {
         rotate(-12deg);
 
     opacity: 0;
+}
+
+/* Foto decorativa dentro del sobre (ramita, flor...) */
+.envelope-decor {
+    position: absolute;
+
+    left: 50%;
+    bottom: 6%;
+    transform: translateX(-50%);
+
+    width: 70px;
+    height: 40px;
+
+    background-image: url('../img/decor-sobre.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    z-index: 2;
+    pointer-events: none;
 }
 
 /* ---------------------------------------------------------
@@ -852,6 +856,14 @@ body.our-site-mode {
     opacity: 0.6;
 }
 
+/* Foto decorativa junto a "Pilar & Sofía" en el pie */
+.footer-decor {
+    display: block;
+    width: 90px;
+    height: auto;
+    margin: 0 auto 15px;
+}
+
 
 /* ---------------------------------------------------------
    ANIMACIONES DE APARICIÓN AL HACER SCROLL
@@ -899,28 +911,15 @@ body.our-site-mode {
 
 @media (max-width: 700px) {
 
-    /*
-     * PORTADA
-     * -----------------------------------------------------
-     * En móvil utilizamos la altura real disponible.
-     * 100dvh se adapta mejor a las barras del navegador
-     * de iPhone y Android.
-     */
-
    .wedding-cover {
     min-height: 100dvh;
     height: 100dvh;
     padding: 30px 20px;
     box-sizing: border-box;
-    background-size: cover;  /* 110% auto deja espacios arriba y abajo */
+    background-size: cover;
     background-position: 30% center;
     background-repeat: no-repeat;
 }
-
-
-    /*
-     * CONTENIDO DE LA PORTADA
-     */
 
     .wedding-cover-content {
 
@@ -933,18 +932,10 @@ body.our-site-mode {
        
         box-sizing: border-box;
         transform: translateY(-100px);
-        /*
-         * Evita que el contenido quede pegado
-         * a los extremos de la pantalla.
-         */
+
         margin:
             0 auto;
     }
-
-
-    /*
-     * TÍTULO "NOS CASAMOS"
-     */
 
     .wedding-small-title {
 
@@ -957,11 +948,6 @@ body.our-site-mode {
             18px;
     }
 
-
-    /*
-     * NOMBRES
-     */
-
     .wedding-cover h1 {
 
         font-size:
@@ -970,11 +956,6 @@ body.our-site-mode {
         line-height:
             1.05;
     }
-
-
-    /*
-     * FECHA
-     */
 
     .wedding-date {
 
@@ -991,11 +972,6 @@ body.our-site-mode {
             0.16em;
     }
 
-
-    /*
-     * CUENTA ATRÁS
-     */
-
     .wedding-countdown {
 
         gap:
@@ -1008,20 +984,17 @@ body.our-site-mode {
             100%;
     }
 
-
     .wedding-countdown > div {
 
         min-width:
             52px;
     }
 
-
     .wedding-countdown strong {
 
         font-size:
             23px;
     }
-
 
     .wedding-countdown span {
 
@@ -1032,11 +1005,6 @@ body.our-site-mode {
             0.08em;
     }
 
-
-    /*
-     * INDICADOR DE SCROLL
-     */
-
     .wedding-scroll-hint {
 
         margin-top:
@@ -1045,11 +1013,6 @@ body.our-site-mode {
         font-size:
             23px;
     }
-
-
-    /*
-     * RESTO DE SECCIONES
-     */
 
     .wedding-section {
 
@@ -1060,11 +1023,6 @@ body.our-site-mode {
             56px 20px;
     }
 
-
-    /*
-     * EVENTO
-     */
-
     .event-details {
 
         grid-template-columns:
@@ -1073,11 +1031,6 @@ body.our-site-mode {
         gap:
             26px;
     }
-
-
-    /*
-     * TÍTULOS
-     */
 
     .wedding-content h2 {
 
@@ -1091,11 +1044,6 @@ body.our-site-mode {
             1.1;
     }
 
-
-    /*
-     * TEXTOS
-     */
-
     .wedding-text {
 
         margin:
@@ -1105,17 +1053,11 @@ body.our-site-mode {
             1.6;
     }
 
-
     .wedding-kicker {
 
         font-size:
             10px;
     }
-
-
-    /*
-     * TARJETAS DE INFORMACIÓN
-     */
 
     .info-card {
 
@@ -1126,17 +1068,11 @@ body.our-site-mode {
             0 auto 14px;
     }
 
-
     .info-card h3 {
 
         font-size:
             20px;
     }
-
-
-    /*
-     * BOTONES
-     */
 
     .wedding-button {
 
@@ -1144,28 +1080,17 @@ body.our-site-mode {
             13px 22px;
     }
 
-
-    /*
-     * SPOTIFY
-     */
-
     .spotify-embed-wrapper iframe {
 
         height:
             280px;
     }
 
-
-    /*
-     * PIE
-     */
-
     .wedding-footer {
 
         padding:
             34px 20px;
     }
-
 
     .wedding-footer p {
 
