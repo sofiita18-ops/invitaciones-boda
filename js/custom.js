@@ -55,9 +55,7 @@
 
             return (
                 tipo === 'niño' ||
-                tipo === 'nino' ||
-                tipo === 'bebé' ||
-                tipo === 'bebe'
+                tipo === 'nino'
             );
         }
 
@@ -124,6 +122,7 @@
                             alt="P&amp;S"
                         >
                     </div>
+                    <div class="envelope-decor"></div>
 
                 </div>
 
@@ -772,17 +771,11 @@ function mostrarIBANCopiado(
             </section>
 
 
-            <footer class="wedding-footer">
-
-                <p>
-                    Pilar & Sofía
-                </p>
-
-                <span>
-                    Con mucho cariño
-                </span>
-
-            </footer>
+<footer class="wedding-footer">
+    <img class="footer-decor" src="img/decor-footer.png" alt="">
+    <p>Pilar &amp; Sofía</p>
+    <span>Con mucho cariño</span>
+</footer>
 
         `;
 
