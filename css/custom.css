@@ -110,8 +110,7 @@ body.invitation-locked {
 
     cursor: pointer;
 
-    filter:
-        drop-shadow(0 16px 25px var(--shadow));
+    box-shadow: 0 16px 25px var(--shadow);
 
     transition:
         transform 1.8s cubic-bezier(.22,.61,.36,1),
@@ -200,8 +199,8 @@ body.invitation-locked {
 
     transform: translate(-50%, -50%);
 
-    width: 66px;
-    height: 66px;
+    width: 76px;
+    height: 76px;
 
     display: flex;
     align-items: center;
@@ -263,6 +262,7 @@ body.invitation-locked {
 
     z-index: 2;
     pointer-events: none;
+    display: none;
 }
 
 /* ---------------------------------------------------------
@@ -388,8 +388,8 @@ body.our-site-mode {
 
     background:
         linear-gradient(
-            rgba(40,35,30,0.25),
-            rgba(40,35,30,0.25)
+            rgba(255,255,255,0.50),
+            rgba(255,255,255,0.50)
         ),
         url('../img/FOTO_BODA.webp');
 
