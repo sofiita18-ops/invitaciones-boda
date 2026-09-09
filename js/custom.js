@@ -755,7 +755,7 @@ function mostrarIBANCopiado(
                             Aportaciones
                         </h3>
 
-                        <p> Lo más importante para nosotras es compartir este día con vosotros. Pero si además queréis colaborar con nosotras en esta nueva aventura, podéis hacerlo aquí: </p> <div class="iban-container"> <span id="iban"> ES00 0000 0000 0000 0000 0000 </span> <button type="button"  id="boton-copiar-iban" class="copy-iban-btn"> Copiar </button>
+                        <p> Lo más importante para nosotras es compartir este día con vosotros. Pero si además queréis colaborar con nosotras en esta nueva aventura, podéis hacerlo aquí: </p> <div class="iban-container"> <span id="iban"> ES59 2085 9864 9003 3055 7045</span> <button type="button"  id="boton-copiar-iban" class="copy-iban-btn"> Copiar </button>
 
                     </div>
 
