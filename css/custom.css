@@ -199,8 +199,8 @@ body.invitation-locked {
 
     transform: translate(-50%, -50%);
 
-    width: 76px;
-    height: 76px;
+    width: 96px;
+    height: 96px;
 
     display: flex;
     align-items: center;
@@ -388,8 +388,8 @@ body.our-site-mode {
 
     background:
         linear-gradient(
-            rgba(255,255,255,0.50),
-            rgba(255,255,255,0.50)
+             rgba(40,35,30,0.50),
+             rgba(40,35,30,0.50)
         ),
         url('../img/FOTO_BODA.webp');
 
