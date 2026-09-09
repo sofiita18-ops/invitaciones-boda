@@ -111,7 +111,7 @@
 
                     <div class="envelope-seal">
                         <img
-                            src="img/logo.png"
+                            src="img/logo300.png"
                             alt="P&amp;S"
                         >
                     </div>
