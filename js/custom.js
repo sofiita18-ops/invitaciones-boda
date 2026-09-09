@@ -32,13 +32,6 @@
         'https://open.spotify.com/playlist/2LRCul0O7rFApSW6pLG2xF?si=6216654274204537';
     const SPOTIFY_PLAYLIST_ID = '2LRCul0O7rFApSW6pLG2xF';
 
-    /*
-     * Cargar nuestro CSS
-     */
-    const customCss = document.createElement('link');
-    customCss.rel = 'stylesheet';
-    customCss.href = 'css/custom.css';
-    document.head.appendChild(customCss);
 
 
     /*
@@ -772,9 +765,10 @@ function mostrarIBANCopiado(
 
 
 <footer class="wedding-footer">
-    <img class="footer-decor" src="img/decor-footer.png" alt="">
-    <p>Pilar &amp; Sofía</p>
+     <p>Pilar &amp; Sofía</p>
     <span>Con mucho cariño</span>
+    <img class="footer-decor" src="img/decor-footer.png" alt="" loading="lazy">
+    
 </footer>
 
         `;
