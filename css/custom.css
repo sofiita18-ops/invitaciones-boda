@@ -380,7 +380,7 @@ body.our-site-mode {
 
 
 /* ---------------------------------------------------------
-   PORTADA
+   PORTADA  anteriormente ../img/FOTO_PORTADA.jpg'
    --------------------------------------------------------- */
 
 .wedding-cover {
@@ -391,7 +391,7 @@ body.our-site-mode {
             rgba(40,35,30,0.25),
             rgba(40,35,30,0.25)
         ),
-        url('../img/FOTO_PORTADA.jpg');
+        url('../img/FOTO_BODA.webp');
 
     background-size: cover;
     background-position: center;
