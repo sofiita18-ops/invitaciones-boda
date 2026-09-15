@@ -525,7 +525,7 @@ function mostrarIBANCopiado(
                         <div class="event-detail">
 
                             <div class="event-icon">
-                                ♡
+                                📅
                             </div>
 
                             <h3>
@@ -543,7 +543,7 @@ function mostrarIBANCopiado(
                         <div class="event-detail">
 
                             <div class="event-icon">
-                                ○
+                                📍
                             </div>
 
                             <h3>
