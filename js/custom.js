@@ -725,7 +725,7 @@ function mostrarIBANCopiado(
 
                         <p>
                            Ceremonia 19:45 </br>
-                           Coctel 21:00 a 23:30 </br>
+                           Cóctel 21:00 a 23:30 </br>
                            Discoteca 23:30 a 03:00 </br>
 
                         </p>
