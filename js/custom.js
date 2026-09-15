@@ -741,7 +741,7 @@ function mostrarIBANCopiado(
                         <p>
            Podéis elegir libremente el hotel o apartamento que prefiráis.
             <br>
-            Si en la encuesta habéis indicado que necesitáis alojamiento y finalmente organizamos una opción conjunta, os informaremos de todos los detalles.
+            Aquí os dejamos algunas opciones con código descuento para nuestra boda.
 
                         </p>
 
@@ -1633,18 +1633,6 @@ console.log(
     }
 
 
-    const alojamiento =
-        extra.querySelectorAll(
-            `input[name="alojamiento-${index}"]`
-        );
-
-    alojamiento.forEach(
-        function (radio) {
-            radio.checked = false;
-        }
-    );
-
-
     const preboda =
         extra.querySelectorAll(
             `input[name="preboda-${index}"]`
@@ -1785,12 +1773,6 @@ boton.textContent =
                                 ?.trim() || '';
 
 
-                        const alojamiento =
-                            persona.querySelector(
-                                `input[name="alojamiento-${index}"]:checked`
-                            )?.value || '';
-
-
                         const preboda =
                             persona.querySelector(
                                 `input[name="preboda-${index}"]:checked`
@@ -1811,12 +1793,6 @@ boton.textContent =
                             alergias:
                                 alergias,
 
-                            alojamiento:
-                                alojamiento === 'SI'
-                                    ? 'Sí'
-                                    : alojamiento === 'NO'
-                                        ? 'No'
-                                        : '',
 
                             preboda:
                                 preboda === 'SI'
@@ -2220,28 +2196,6 @@ function aplicarRespuestasRsvp(
                         'Alergias / intolerancias'
                     ] || '';
 
-            }
-
-
-            /*
-             * Alojamiento
-             */
-            const alojamiento =
-                String(
-                    respuesta.Alojamiento || ''
-                ).toLowerCase();
-
-
-            if (alojamiento) {
-
-                const radio =
-                    persona.querySelector(
-                        `input[name="alojamiento-${index}"][value="${alojamiento === 'sí' || alojamiento === 'si' ? 'SI' : 'NO'}"]`
-                    );
-
-                if (radio) {
-                    radio.checked = true;
-                }
             }
 
 
