@@ -1526,46 +1526,6 @@ console.log(
                     >
 
 
-                    <label>
-                        ¿Necesitas alojamiento?
-                    </label>
-
-                    <p class="rsvp-extra-note">
-                        Os daremos varias opciones según
-                        las respuestas.
-                    </p>
-
-                    <div class="rsvp-options">
-
-                        <label>
-
-                            <input
-                                type="radio"
-                                name="alojamiento-${index}"
-                                value="SI"
-                            >
-
-                            <span>
-                                Sí
-                            </span>
-
-                        </label>
-
-
-                        <label>
-
-                            <input
-                                type="radio"
-                                name="alojamiento-${index}"
-                                value="NO"
-                            >
-
-                            <span>
-                                No
-                            </span>
-
-                        </label>
-
                     </div>
 
 
