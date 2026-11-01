@@ -739,20 +739,16 @@ function mostrarIBANCopiado(
                         </h3>
 
                         <p>
-           Podéis elegir libremente el hotel o apartamento que prefiráis.
-            <br>
-            Aquí os dejamos algunas opciones con código descuento para nuestra boda.
-            <p>
                 Podéis elegir libremente el hotel o apartamento que prefiráis.
                 <br><br>
                  <a
                     href="https://www.hotel-bb.com/es/hotel/zaragoza-centro?original_action=%2Fes%2Fhotel%2Fzaragoza-centro&gps%5Bvalue%5D=41.658505%2C-0.874457&gps%5Bdistance%5D%5Bfrom%5D=50&arrival_date=06%2F04%2F2027&departure_date=06%2F06%2F2027&destination=Zaragoza%20Centro&internal_keywords=Zaragoza%20Centro&viewport=1900x740&r1_ad=2&currency_code=EUR"
-                    target="_blank"
+                     target="_blank"
                     rel="noopener"
+                    style="color:#8B5A2B; text-decoration:underline;"
                 >B&amp;B HOTEL Zaragoza Centro</a>,
                 a 5 minutos a pie del Molino de San Lázaro, ofrece un 10% de descuento
                 si reserváis por teléfono y mencionáis que es para la boda de Pilar y Sofía.
-            </p>
                         </p>
 
                     </div>
