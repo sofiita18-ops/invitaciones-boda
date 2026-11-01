@@ -21,7 +21,7 @@
     const FECHA_BODA = new Date('2027-06-05T19:45:00');
 
     const LUGAR = {
-        nombre: 'El Molino de San Lázaro',
+        nombre: 'Molino de San Lázaro',
         direccion: 'Paseo de la Ribera, 22 · 50014 Zaragoza',
         mapsUrl:
             'https://www.google.com/maps/place/Molino+de+San+L%C3%A1zaro/@41.6570365,-0.8719003,634m/data=!3m2!1e3!4b1!4m6!3m5!1s0xd5914f4ba57d54b:0x42daaf7e4d672d5f!8m2!3d41.6570365!4d-0.8719003!16s%2Fg%2F1tj53y8b?entry=ttu&g_ep=EgoyMDI2MDgxNy4wIKXMDSoASAFQAw%3D%3D',
