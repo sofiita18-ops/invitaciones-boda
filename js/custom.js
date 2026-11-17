@@ -92,7 +92,7 @@
 
                 ${
                     nombreMenores
-                        ? `<div class="invitation-guest-names-kids">
+                        ? `<div class="invitation-guest-names">
                                ${escapeHtml(nombreMenores)}
                            </div>`
                         : ''
