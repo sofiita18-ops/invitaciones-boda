@@ -1547,8 +1547,7 @@ console.log(
 
                     <p class="rsvp-extra-note">
                         Según el número de personas
-                        avisaremos si finalmente se realiza
-                        o no.
+                        avisaremos si finalmente se realiza y el lugar.
                     </p>
 
                     <div class="rsvp-options">
