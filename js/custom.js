@@ -724,9 +724,10 @@ function mostrarIBANCopiado(
                         </h3>
 
                         <p>
-                           Ceremonia 19:45 </br>
-                           Cóctel 21:00 a 23:30 </br>
-                           Discoteca 23:30 a 03:00 </br>
+                           19:45 · Ceremonia </br>
+                           21:00 · Cóctel </br>
+                           23:30 · Discoteca </br>
+                           03:00 · Fin de fiesta... ¡o no! </br>
 
                         </p>
 
