@@ -1540,7 +1540,7 @@ console.log(
                     </div>
 
 
-                    <label>
+                    <label style="display:block; margin-top:28px;">
                         ¿Vendrías a la preboda el día de
                         antes por la tarde?
                     </label>
