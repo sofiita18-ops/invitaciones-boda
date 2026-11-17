@@ -727,7 +727,7 @@ function mostrarIBANCopiado(
                            19:45 · Ceremonia </br>
                            21:00 · Cóctel </br>
                            23:30 · Discoteca </br>
-                           03:00 · Fin de fiesta... ¡o no! </br>
+                           04:00 · Fin de fiesta... ¡o no! </br>
 
                         </p>
 
