@@ -29,7 +29,8 @@
     };
 
     const SPOTIFY_PLAYLIST_URL =
-        'https://open.spotify.com/playlist/2LRCul0O7rFApSW6pLG2xF?si=664eb32ef69d4d6f&pt=e1db2a9cf142f6ad53593c8f787f2d83';
+        'https://open.spotify.com/playlist/2LRCul0O7rFApSW6pLG2xF?si=ef3978c293974821&pt=1f8f25cd26c7162864e2e1a159b847e3';
+
          
     const SPOTIFY_PLAYLIST_ID = '2LRCul0O7rFApSW6pLG2xF';
 
@@ -640,6 +641,7 @@ function mostrarIBANCopiado(
                         title="Playlist colaborativa de la boda"
                         style="border-radius: 12px; display: block; border: 0;"
                         src="https://open.spotify.com/embed/playlist/${SPOTIFY_PLAYLIST_ID}?utm_source=generator&theme=0"
+                        
                         width="100%"
                         height="152"
                         frameborder="0"
