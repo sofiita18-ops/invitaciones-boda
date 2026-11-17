@@ -18,7 +18,7 @@
      * (edita aquí para cambiar fecha, lugar o playlist)
      * ========================================================
      */
-    const FECHA_BODA = new Date('2027-06-05T19:45:00');
+    const FECHA_BODA = new Date('2027-06-05T19:45:00+02:00');
 
     const LUGAR = {
         nombre: 'Molino de San Lázaro',
