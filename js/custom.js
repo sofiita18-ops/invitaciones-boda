@@ -603,7 +603,10 @@ function mostrarIBANCopiado(
                     >
                         Confirmar asistencia
                     </button>
-
+                    
+                   <div class="imagen-asistencia">
+    <img src="img/decor_asistencia.png" alt="Decoración">
+</div>
                 </div>
 
             </section>
