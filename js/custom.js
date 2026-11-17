@@ -29,9 +29,8 @@
     };
 
     const SPOTIFY_PLAYLIST_URL =
-        'https://open.spotify.com/playlist/2LRCul0O7rFApSW6pLG2xF?si=ef3978c293974821&pt=1f8f25cd26c7162864e2e1a159b847e3';
-
-         
+        'https://open.spotify.com/playlist/2LRCul0O7rFApSW6pLG2xF?si=TFsaysX3R-eDJq9CQbMwSg&utm_source=copy-link&pt=55578b6a1b195682b7f097b6e3fd0da9&pi=cilBhZvDTWiDD';
+        
     const SPOTIFY_PLAYLIST_ID = '2LRCul0O7rFApSW6pLG2xF';
 
 
@@ -632,8 +631,7 @@ function mostrarIBANCopiado(
                     <p class="wedding-text">
                         Añade las canciones que no pueden
                         faltar en nuestra boda a esta
-                        playlist colaborativa. Sonarán
-                        en la fiesta.
+                        playlist colaborativa.
                     </p>
 
                     <div class="spotify-embed-wrapper" style="height:152px; min-height:0; margin:0 0 16px;">
@@ -657,7 +655,7 @@ function mostrarIBANCopiado(
                         target="_blank"
                         rel="noopener"
                     >
-                        Abrir en Spotify
+                        AÑADIR CANCIONES EN SPOTIFY
                     </a>
 
                     <p class="wedding-text song-form-intro">
