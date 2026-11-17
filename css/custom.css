@@ -1714,11 +1714,11 @@ body.rsvp-open {
 
 .imagen-asistencia {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .imagen-asistencia img {
-  max-width: 250px;  /* cambia el tamaño a tu gusto */
+  max-width: 280px;  /* cambia el tamaño a tu gusto */
   width: 100%;
   height: auto;
 }
