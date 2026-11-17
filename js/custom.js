@@ -29,7 +29,8 @@
     };
 
     const SPOTIFY_PLAYLIST_URL =
-        'https://open.spotify.com/playlist/2LRCul0O7rFApSW6pLG2xF?si=6216654274204537';
+        'https://open.spotify.com/playlist/2LRCul0O7rFApSW6pLG2xF?si=664eb32ef69d4d6f&pt=e1db2a9cf142f6ad53593c8f787f2d83';
+         
     const SPOTIFY_PLAYLIST_ID = '2LRCul0O7rFApSW6pLG2xF';
 
 
